@@ -2,6 +2,7 @@
 import { useRoute,useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue'
   import { supabase } from '../lib/supabaseClient'
+import SearchQuestionComponent from '../components/SearchQuestionComponent.vue'
   const router = useRouter()
   const route = useRoute()
   const name = route.params.name
@@ -26,8 +27,12 @@ onMounted(() => {
 <template>
   <div class="about">
     <h1>Here are the results for: {{ name }}</h1>
-    <div v-for="i in filtered">{{i}}</div>
-  </div>
+    <div v-for="i in filtered">
+      <SearchQuestionComponent :id="i.id" :title="i.question_name" :subject="i.subject" :class_name="i.class_name" :question_text="i.question_text" :img_url="i.image"/>
+
+
+    </div>
+</div>
 </template>
 
 <style>
