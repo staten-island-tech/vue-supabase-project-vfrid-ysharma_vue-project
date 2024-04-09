@@ -1,6 +1,6 @@
 <script setup>
   import { ref, onMounted } from 'vue'
-  import { supabase } from './lib/supabaseClient'
+  import { supabase } from '../lib/supabaseClient'
 
   const Questions = ref([])
 
@@ -28,11 +28,11 @@
         <img class="projcard-img" :src="question.image" />
         <div class="projcard-textbox">
             <div class="projcard-username">{{question.user}}</div> <!--  Remember to link this to the user's profile later! -->
-          <div class="projcard-title">{{question.question_name}}</div>
+          <div class="projcard-title">{{question.question_name}}</div> <button>Click For More</button> <!-- Remember to link this to the question view later! -->
+          <div class="projcard-subtitle">Class: {{ question.class_name }}, Teacher: {{ question.teacher }}</div>
           <div class="projcard-bar"></div>
           <div class="projcard-description">{{ question.question_text }}</div>
-          <div class="projcard-tagbox">Answered: {{ question.answered }}
-          </div>
+          <div class="projcard-tagbox">Answered: {{ question.answered }}</div>
         </div>
       </div>
     </div>
@@ -44,6 +44,7 @@ body {
   font-family: 'Open Sans', arial, sans-serif;
   color: #333;
   font-size: 14px;
+  overflow: scroll;
 }
 .projcard-container {
   margin: 50px 0;
@@ -160,7 +161,7 @@ body {
 }
 .projcard-subtitle {
   font-family: 'Voces', 'Open Sans', arial, sans-serif;
-  color: #888;
+  color: #727272;
 }
 .projcard-bar {
   left: -2px;
