@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Questions from '../views/Questions.vue'
+import Profile from '../views/Profile.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +15,11 @@ const router = createRouter({
       path: '/questions',
       name: 'questions',
       component: Questions
+    },
+    {
+      path: '/profile/:osis',
+      name: 'profile',
+      component: Profile
     }
 
   ]

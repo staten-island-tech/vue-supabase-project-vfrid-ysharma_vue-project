@@ -27,8 +27,8 @@
       <div class="projcard-innerbox">
         <img class="projcard-img" :src="question.image" />
         <div class="projcard-textbox">
-            <div class="projcard-username">{{question.user}}</div> <!--  Remember to link this to the user's profile later! -->
-          <div class="projcard-title">{{question.question_name}}</div> <button>Click For More</button> <!-- Remember to link this to the question view later! -->
+            <div class="projcard-username"><a  v-bind:href="'/profile/'+question.osis">{{question.user}}</a></div> <!--  Remember to link this to the user's profile later! -->
+          <div class="projcard-title">{{question.question_name}} <a class="projcard-button">Click For More</a> </div><!-- Remember to link this to the question view later! -->
           <div class="projcard-subtitle">Class: {{ question.class_name }}, Teacher: {{ question.teacher }}</div>
           <div class="projcard-bar"></div>
           <div class="projcard-description">{{ question.question_text }}</div>
@@ -45,6 +45,7 @@ body {
   color: #333;
   font-size: 14px;
   overflow: scroll;
+  overflow-x: hidden;
 }
 .projcard-container {
   margin: 50px 0;
@@ -58,6 +59,7 @@ body {
 .projcard-container {
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 10px;
   width: 1000px;
 }
 .projcard {
@@ -101,7 +103,7 @@ body {
 .projcard-img {
   position: absolute;
   height: 300px;
-  width: 400px;
+  width: 340px;
   top: 0;
   left: 0;
   /* transition: transform 0.2s ease; */
@@ -244,4 +246,8 @@ body {
   border-top: 13px solid transparent;
   right: -10px;
   top: 0;
-}</style>
+}
+.projcard-button{
+  font-size:16px;
+}
+</style>
