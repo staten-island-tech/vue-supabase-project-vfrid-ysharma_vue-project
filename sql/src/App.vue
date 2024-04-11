@@ -1,58 +1,8 @@
 <script setup>
-  import { ref, onMounted } from 'vue'
-  import { supabase } from './lib/supabaseClient'
-
-  // const Users = ref([])
-  // async function getUsers() {
-  //   let { data } = await supabase.from('Users').select()
-  //   Users.value = data
-  // }
-  // onMounted(() => {
-  //   getUsers()
-  // })
-  // console.log(Users.value)
-
-   const email = ref('')
-   const password = ref('')
-   const f_name =ref()
-   const grade =ref()
-  async function signup() {
-    if(typeof(f_name.value) != "string"){
-      alert("Please enter a valid first name")
-      return
-    }
-  if(!(9<=grade.value<=12)){
-      alert("Please enter a valid grade")
-      console.log(grade.value)
-      return
-    }
-    let { data, error } = await supabase.auth.signUp({
-    email: email.value,
-    password: password.value,
-    options: {
-      data: {
-        first_name: f_name.value,
-        grade: grade.value
-      }
-    }
-  })  
-  if(error!==null){
-    alert(error)
-  }
-  console.log(data)
-  console.log(error)
-  }
-
-  
+  import LogIn from "./components/LogIn.vue"
   </script>
+  
 
   <template>
-    <div>
-    <input v-model="email" type="text" placeholder="E-mail" />
-    <input v-model="password" type="text" placeholder="Password" />
-    <input v-model="f_name" type="text" placeholder="First Name" />
-    <input v-model="grade" type="number" placeholder="Your Grade" />
-
-    <button @click="signup">Sign Up</button>
-  </div>
+    <LogIn />
   </template>
