@@ -1,21 +1,30 @@
 <script setup>
   import { ref, onMounted } from 'vue'
   import { supabase } from '../lib/supabaseClient'
+  import {useRoute,useRouter} from 'vue-router'
+  const info = ref([])
 
-  const Profile_Info = ref([])
-
+  const router = useRouter()
+  const route = useRoute()
+  const osis_num = route.params.osis
+  console.log(osis_num)
   async function getProfile() {
-    const { data } = await supabase.from('Users').select()
-    Profile_Info.value = data
+    const { data } = await supabase.from('Users')
+      .select()
+      .eq('osis',osis_num )
+    info.value = data
   }
 
   onMounted(() => {
     getProfile()
   })
   
-  console.log(Profile_Info)
+  console.log(info)
 </script>
 
 <template>
-    <h1> hey.. </h1>
+  <div v-for="data in info">
+    <h1> {{data.osis}} </h1>
+  </div>
+
 </template>

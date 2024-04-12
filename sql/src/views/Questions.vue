@@ -27,7 +27,7 @@
       <div class="projcard-innerbox">
         <img class="projcard-img" :src="question.image" />
         <div class="projcard-textbox">
-            <div class="projcard-username"><a  v-bind:href="'/profile/'+question.osis">{{question.user}}</a></div> <!--  Remember to link this to the user's profile later! -->
+            <div class="projcard-username"><RouterLink  :to="'/profile/'+question.osis">{{question.user}}</RouterLink></div> <!--  Remember to link this to the user's profile later! -->
           <div class="projcard-title">{{question.question_name}} <a class="projcard-button">Click For More</a> </div><!-- Remember to link this to the question view later! -->
           <div class="projcard-subtitle">Class: {{ question.class_name }}, Teacher: {{ question.teacher }}</div>
           <div class="projcard-bar"></div>
