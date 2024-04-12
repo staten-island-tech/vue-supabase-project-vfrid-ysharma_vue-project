@@ -24,7 +24,7 @@ const url = '/questions/'+ props.id
   </div> -->
 
   <RouterLink :to="url">
-  <Card style="width: 25rem; overflow: hidden">
+  <Card style="width: 25rem; overflow: hidden;">
     <template #header>
       <img :src="props.img_url" alt="Profile image">
     </template>

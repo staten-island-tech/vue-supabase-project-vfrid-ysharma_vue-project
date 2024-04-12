@@ -10,7 +10,7 @@ import SearchQuestionComponent from '../components/SearchQuestionComponent.vue'
   const name = route.params.name
   let all_questions = ref([])
   let filtered = ref([])
-async function getCountries() {
+async function getEntries() {
   const { data } = await supabase.from('questions').select()
   all_questions.value = data
   all_questions.value.forEach(i => {
@@ -21,7 +21,7 @@ async function getCountries() {
 }
 
 onMounted(() => {
-  getCountries()
+  getEntries()
 })
 
 </script>
