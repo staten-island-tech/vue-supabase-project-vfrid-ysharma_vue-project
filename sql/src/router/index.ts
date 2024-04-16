@@ -17,7 +17,7 @@ const router = createRouter({
       component: Questions
     },
     {
-      path: '/profile/:osis',
+      path: '/profile/:username',
       name: 'profile',
       component: Profile
     }
