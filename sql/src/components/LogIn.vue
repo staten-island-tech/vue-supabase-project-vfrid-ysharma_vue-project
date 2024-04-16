@@ -2,20 +2,13 @@
   import { ref, onMounted } from 'vue'
   import { supabase } from "../lib/supabaseClient"
 
-  // const Users = ref([])
-  // async function getUsers() {
-  //   let { data } = await supabase.from('Users').select()
-  //   Users.value = data
-  // }
-  // onMounted(() => {
-  //   getUsers()
-  // })
-  // console.log(Users.value)
   const showsignin =ref(true)
    const email = ref('')
    const password = ref('')
-   const f_name =ref()
+   const f_name =ref('')
+   const l_name=ref('')
    const grade =ref()
+   const username=ref('')
   async function signup() {
     if(typeof(f_name.value) != "string"){
       alert("Please enter a valid first name")
