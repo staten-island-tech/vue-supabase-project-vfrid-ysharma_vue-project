@@ -14,7 +14,36 @@
       .eq('username',username )
     info.value = data
   }
-
+  async function updateProfile(grade,email,f_name,l_name,event){
+    event.preventDefault()
+    const {new_data} = await supabase.from('Users')
+      .select()
+      .upsert({username:username, grade:grade, email:email, f_name:f_name, l_name:l_name})
+      .eq('username',username)
+    console.log(grade,email,f_name,l_name)
+    info.value = new_data
+    }
+  function openForm(){
+    const inform = document.querySelector(".info")
+    inform.innerHTML=(
+      `    <form action="" id="form" class="form_container">
+      <label for="grade" class="form_label">Grade: </label>
+      <input type="text" name="grade" id="grade" class="input_field"/>
+      <label for="email" class="form_label">Email: </label>
+      <input type="text" name="email" id="email" class="input_field"/>
+      <label for="f_name" class="form_label">First Name: </label>
+      <input type="text" name="f_name" id="f_name" class="input_field"/>
+      <label for="l_name" class="form_label">Last Name: </label>
+      <input type="text" name="l_name" id="l_name" class="input_field"/>
+      <input @click="updateProfile(grade,email,f_name,l_name)" type="submit" value="Update Information" class="btn"/>
+    </form>`
+    )
+    const grade = document.querySelector("#grade").value
+    const email = document.querySelector("#email").value
+    const f_name = document.querySelector("#f_name").value
+    const l_name = document.querySelector("#l_name").value
+    console.log('changed')
+  }
   onMounted(() => {
     getProfile()
   })
@@ -38,7 +67,7 @@
       <h2>{{ "Date Account Was Created: "+data.created_at }}</h2>
       <h2>{{"First Name: "+ data.f_name }}</h2>
       <h2>{{ "Last Name: "+data.l_name }}</h2>
-      <button class="edit_button">Edit</button>
+      <button class="edit_button" @click="openForm()">Edit</button>
     </div>
   </div>
 
