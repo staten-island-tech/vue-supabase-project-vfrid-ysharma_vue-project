@@ -3,17 +3,21 @@
   import { supabase } from "../lib/supabaseClient"
 
   const showsignin =ref(true)
-   const email = ref('')
-   const password = ref('')
-   const f_name =ref('')
-   const l_name=ref('')
-   const grade =ref()
-   const username=ref('')
+   const email = ref("")
+   const password = ref("")
+   const f_name =ref("")
+   const l_name=ref("")
+   const grade =ref("")
+   const username=ref("")
+   const osis=ref("")
+ 
   async function signup() {
-    if(typeof(f_name.value) != "string"){
-      alert("Please enter a valid first name")
-      return
-    }
+    console.log(username.value)
+    if (
+  email.value === "" || password.value === "" || f_name.value === "" || l_name.value === "" || grade.value === null || username.value === "" ||osis.value==""){
+    alert("please fill out all fields")
+    return
+  }
   if(!(9<=grade.value<=12)){
       alert("Please enter a valid grade")
       console.log(grade.value)
@@ -24,8 +28,11 @@
     password: password.value,
     options: {
       data: {
-        first_name: f_name.value,
-        grade: grade.value
+        f_name: f_name.value,
+        l_name: l_name.value,
+        grade: grade.value,
+        osis: osis.value,
+        username: username.value,
       }
     }
   })  
@@ -63,9 +70,13 @@
     </div>
     <div v-else class="signup">
       <input v-model="email" type="text" placeholder="E-mail" />
+      <input v-model="username" type="text" placeholder="Username"/>
       <input v-model="password" type="text" placeholder="Password" />
       <input v-model="f_name" type="text" placeholder="First Name" />
+      <input v-model="l_name" type="text" placeholder="Last Name">
       <input v-model="grade" type="number" placeholder="Your Grade" />
+      <input v-model="osis" type="number" placeholder="Osis Number"/>
+
       <button @click="signup">Sign Up</button>
       <button @click="showsignupfunc">Want to Sign In?</button>
 
