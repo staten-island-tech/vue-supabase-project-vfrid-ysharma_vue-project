@@ -86,7 +86,7 @@ $(".previous").click(function(){
   <!-- Learn More: https://formbold.com -->
   <div class="formbold-form-wrapper">
     <h2>Post A Question</h2>
-    <form action="https://formbold.com/s/FORM_ID" method="POST">
+    <form>
       <div class="formbold-input-group">
         <label for="name" class="formbold-form-label"> Question Title </label>
         <input
@@ -206,7 +206,7 @@ $(".previous").click(function(){
         ></textarea>
       </div>
 
-      <button @click="submit fucntion that gets data and stores it and submits it" class="formbold-btn">Submit</button>
+      <button class="formbold-btn">Submit</button>
     </form>
   </div>
 </div>
