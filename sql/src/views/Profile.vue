@@ -14,11 +14,10 @@
       .eq('username',username )
     info.value = data
   }
-  async function updateProfile(grade,email,f_name,l_name,event){
-    event.preventDefault()
+  async function updateProfile(grade,email,f_name,l_name){
     const {new_data} = await supabase.from('Users')
-      .select()
       .upsert({username:username, grade:grade, email:email, f_name:f_name, l_name:l_name})
+      .select()
       .eq('username',username)
     console.log(grade,email,f_name,l_name)
     info.value = new_data
@@ -35,14 +34,19 @@
       <input type="text" name="f_name" id="f_name" class="input_field"/>
       <label for="l_name" class="form_label">Last Name: </label>
       <input type="text" name="l_name" id="l_name" class="input_field"/>
-      <input @click="updateProfile(grade,email,f_name,l_name)" type="submit" value="Update Information" class="btn"/>
+      <input type="submit" value="Update Information" class="btn"/>
     </form>`
     )
     const grade = document.querySelector("#grade").value
     const email = document.querySelector("#email").value
     const f_name = document.querySelector("#f_name").value
     const l_name = document.querySelector("#l_name").value
-    console.log('changed')
+    console.log('changed',grade,email,f_name,l_name)
+    const form = document.querySelector("#form")
+    form.addEventListener("submit", function(e){
+    e.preventDefault();
+    updateProfile(grade,email,f_name,l_name)
+  })
   }
   onMounted(() => {
     getProfile()
