@@ -28,7 +28,7 @@
     password: password.value,
     options: {
       data: {
-        first_name: f_name.value,
+        f_name: f_name.value,
         age:grade.value,
         // l_name: l_name.value,
         // grade: grade.value,
