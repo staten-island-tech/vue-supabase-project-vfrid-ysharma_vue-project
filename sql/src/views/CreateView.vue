@@ -12,8 +12,9 @@ import { supabase } from '../lib/supabaseClient'
   //run pinia code later to get this
   const subject_f = ref('')
   const teacher_f = ref('')
+  const grade_f = ref('')
     async function submit_supa() {
-      console.log(question_name_f)
+      if(question_name_f.value != '' || question_text_f.value != '' || subject_f.value != '' || teacher_f.value != '' || class_name_f.value != '' || grade_f.value != ''){
   const { data, error } = await supabase.from('questions').insert({
     user: 'simonsaff', 
     question_name: question_name_f.value, 
@@ -21,14 +22,19 @@ import { supabase } from '../lib/supabaseClient'
     answered: 'False', 
     subject: subject_f.value, 
     teacher: teacher_f.value, 
-    class_name: class_name_f.value
+    class_name: class_name_f.value,
+    grade_level:grade_f.value
   });
+
 
   if (error) console.error('Error inserting data:', error);
   else console.log('Data inserted:', data);
+}else{
+  document.getElementById('main-wrapper').classList.add('formbold-main-wrapper-red')
+  work here on the wrapper
 }
 
-
+    }
 //jQuery time
 var current_fs, next_fs, previous_fs; //fieldsets
 var left, opacity, scale; //fieldset properties which we will animate
@@ -114,14 +120,13 @@ onMounted(() => {
 })
 
 function submit(){
-  console.log('sumbitted')
   submit_supa()
 }
 
 </script>
 
 <template>
-  <div class="formbold-main-wrapper">
+  <div id='main-wrapper'class="formbold-main-wrapper">
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
   <div class="formbold-form-wrapper">
@@ -168,7 +173,7 @@ function submit(){
           Grade Level?
         </label>
 
-        <select class="formbold-form-select" v-model = 'subject_f' name="occupation" id="occupation">
+        <select class="formbold-form-select" v-model = 'grade_f' name="occupation" id="occupation">
           <option value="Freshman">Freshman</option>
           <option value="Sophmore">Sophmore</option>
           <option value="Junior">Junior</option>
@@ -275,6 +280,7 @@ function submit(){
     align-items: center;
     justify-content: center;
     padding: 48px;
+    background-color: rgb(252, 250, 255);
   }
 
   .formbold-form-wrapper {
@@ -283,6 +289,9 @@ function submit(){
     width: 100%;
     background: white;
     padding: 40px;
+    border-radius: 5px;
+    border: 1px solid #6a64f1;
+    /* box-shadow: 1px 1px 1px 1px; */
   }
 
   .formbold-form-img {
@@ -409,5 +418,9 @@ function submit(){
   }
   .formbold-btn:hover {
     box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .formbold-main-wrapper-red{
+    background-color: rgb(255, 227, 227);
   }
 </style>
