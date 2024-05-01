@@ -9,7 +9,7 @@
   const username = route.params.username
   console.log(username)
   async function getProfile() {
-    const { data } = await supabase.from('Users')
+    const { data } = await supabase.from('profiles')
       .select()
       .eq('username',username )
     info.value = data
