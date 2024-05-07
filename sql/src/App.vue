@@ -1,8 +1,7 @@
 <script setup>
-  import LogIn from "./components/LogIn.vue"
   </script>
   
 
   <template>
-    <LogIn />
+    <RouterLink to="/Login">Go to About</RouterLink>
   </template>
