@@ -48,6 +48,23 @@
   //   updateProfile(grade,email,f_name,l_name)
   // })
   // }
+  function change_pic_form(){
+    const change_pic_div = document.querySelector(".change_pic")
+    change_pic_div.innerHTML="<form action='' id='form' class='form_container'><label for='pic' class='form_label'>Profile Picture URL: </label><input type='text' name='pic' id='pic' class='input_field'/><input type='submit' value='Update Information' class='btn'/></form>"
+    const form = document.querySelector("#form")
+    form.addEventListener("submit", async function(e){
+    e.preventDefault();
+    const pic_url = document.querySelector("#pic").value
+    const { data, error } = await supabase
+      .storage
+      .from('profile_pics')
+      .upload(username+'-pic', pic_url, {
+        cacheControl: '3600',
+        upsert: false
+      })
+    location.reload()
+  })
+  }
   onMounted(() => {
     getProfile()
   })
@@ -64,7 +81,7 @@
         <h1 class="full_name_title"> {{data.f_name + " "+ data.l_name}} </h1>
       </div>
       <h2 class="username">{{ data.username }}</h2>
-      <!-- <button class="edit_pic_button">Change Profile Picture</button> -->
+      <div class="change_pic"><button class="edit_pic_button" @click="change_pic_form()">Change Profile Picture</button></div>
     </div>
     <div class="info">
       <h2>{{"Grade: "+ data.grade }}</h2>
