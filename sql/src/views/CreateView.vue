@@ -13,8 +13,14 @@ import { supabase } from '../lib/supabaseClient'
   const subject_f = ref('')
   const teacher_f = ref('')
   const grade_f = ref('')
+  let question_name_error = ref('')
+  let subject_error = ref('')
+  let question_text_error = ref('')
+  let teacher_error = ref('')
+  let class_name_error = ref('')
+  let grade_error = ref('')
     async function submit_supa() {
-      if(question_name_f.value != '' || question_text_f.value != '' || subject_f.value != '' || teacher_f.value != '' || class_name_f.value != '' || grade_f.value != ''){
+      if(question_name_f.value != '' && question_text_f.value != '' && subject_f.value != '' && teacher_f.value != '' && class_name_f.value != '' && grade_f.value != ''){
   const { data, error } = await supabase.from('questions').insert({
     user: 'simonsaff', 
     question_name: question_name_f.value, 
@@ -27,13 +33,47 @@ import { supabase } from '../lib/supabaseClient'
   });
 
 
-  if (error) console.error('Error inserting data:', error);
-  else console.log('Data inserted:', data);
+  if (error){ console.error('Error inserting data:', error);}
+  else {
+    console.log('Data inserted:', data);
+    router.push('/submitted')
+  }
 }else{
   document.getElementById('main-wrapper').classList.add('formbold-main-wrapper-red')
-  work here on the wrapper
+  if(question_name_f.value == ''){
+    question_name_error.value = "Please fill out this field"
+  }else{
+    question_name_error.value = ''
+  }
+  if(subject_f.value == ''){
+    subject_error.value = "Please fill out this field"
+  }
+  if(question_text_f.value == ''){
+    question_text_error.value = "Please fill out this field"
+  }else{
+    question_text_error.value = ''
+  }
+  if(teacher_f.value == ''){
+    teacher_error.value = "Please fill out this field"
+  }else{
+    teacher_error.value = ''
+  }
+  if(class_name_f.value == ''){
+    class_name_error.value = "Please fill out this field"
+  }else{
+    class_name_error.value = ''
+  }
+  if(grade_f.value == ''){
+    grade_error.value = "Please fill out this field"
+  }else{
+    grade_error.value = ''
+  }
 }
 
+    }
+
+    function update_radio(value){
+      subject_f.value = value
     }
 //jQuery time
 var current_fs, next_fs, previous_fs; //fieldsets
@@ -134,6 +174,7 @@ function submit(){
     <form>
       <div class="formbold-input-group">
         <label for="name" class="formbold-form-label"> Question Title </label>
+        <span class = 'error-message'>{{ question_name_error }}</span>
         <input
         v-model="question_name_f"
           type="text"
@@ -146,6 +187,8 @@ function submit(){
 
       <div class="formbold-input-group">
         <label for="email" class="formbold-form-label"> Class Name </label>
+        <span class = 'error-message'>{{ class_name_error }}</span>
+
         <input
         v-model="class_name_f"
           type="text"
@@ -158,6 +201,7 @@ function submit(){
 
       <div class="formbold-input-group">
         <label for="age" class="formbold-form-label"> Teacher Name </label>
+        <span class = 'error-message'>{{ teacher_error }}</span>
         <input
         v-model="teacher_f"
           type="text"
@@ -172,6 +216,7 @@ function submit(){
         <label class="formbold-form-label">
           Grade Level?
         </label>
+        <span class = 'error-message'>{{ grade_error }}</span>
 
         <select class="formbold-form-select" v-model = 'grade_f' name="occupation" id="occupation">
           <option value="Freshman">Freshman</option>
@@ -185,15 +230,17 @@ function submit(){
         <label for="ans" class="formbold-form-label">
           Subject
         </label>
-
+        <span class = 'error-message'>{{ subject_error }}</span>
         <div class="formbold-radio-flex">
           <div class="formbold-radio-group">
             <label class="formbold-radio-label">
               <input
+              @click="update_radio('Math')"
                 class="formbold-input-radio"
                 type="radio"
                 name="ans"
                 id="ans"
+                value="Math"
               />
               Math
               <span class="formbold-radio-checkmark"></span>
@@ -203,10 +250,12 @@ function submit(){
           <div class="formbold-radio-group">
             <label class="formbold-radio-label">
               <input
+              @click="update_radio('Science')"
                 class="formbold-input-radio"
                 type="radio"
                 name="ans"
                 id="ans"
+                value="Science"
               />
               Science
               <span class="formbold-radio-checkmark"></span>
@@ -215,10 +264,12 @@ function submit(){
           <div class="formbold-radio-group">
             <label class="formbold-radio-label">
               <input
+              @click="update_radio('Tecnhology')"
                 class="formbold-input-radio"
                 type="radio"
                 name="ans"
                 id="ans"
+                value="Technology"
               />
               Technology
               <span class="formbold-radio-checkmark"></span>
@@ -228,10 +279,12 @@ function submit(){
           <div class="formbold-radio-group">
             <label class="formbold-radio-label">
               <input
+              @click="update_radio('English')"
                 class="formbold-input-radio"
                 type="radio"
                 name="ans"
                 id="ans"
+                value="English"
               />
               English
               <span class="formbold-radio-checkmark"></span>
@@ -245,6 +298,7 @@ function submit(){
         <label for="message" class="formbold-form-label">
           Question Text
         </label>
+        <span class = 'error-message'>{{ question_text_error }}</span>
         <textarea
         v-model="question_text_f"
           rows="12"
@@ -422,5 +476,8 @@ function submit(){
 
   .formbold-main-wrapper-red{
     background-color: rgb(255, 227, 227);
+  }
+  .error-message{
+    color:red;
   }
 </style>
