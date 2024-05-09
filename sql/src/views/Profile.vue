@@ -55,14 +55,19 @@
     form.addEventListener("submit", async function(e){
     e.preventDefault();
     const pic_url = document.querySelector("#pic").value
-    const { data, error } = await supabase
-      .storage
-      .from('profile_pics')
-      .upload(username+'-pic', pic_url, {
-        cacheControl: '3600',
-        upsert: false
-      })
-    location.reload()
+    console.log(pic_url)
+    // const { data, error } = await supabase
+    //   .storage
+    //   .from('profile_pics')
+    //   .upload(username+'-pic', pic_url, {
+    //     cacheControl: '3600',
+    //     upsert: false
+    //   })
+    const imgBlob = pic_url.blob();
+    const d = new Date();
+    const time = d.getTime();
+    const {data,error} = await supabase.storage.from('ama').upload(`${time}`,imgBlob,{cacheControl:'3600',upsert: false})
+        // location.reload()
   })
   }
   onMounted(() => {

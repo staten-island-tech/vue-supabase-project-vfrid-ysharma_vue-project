@@ -9,6 +9,8 @@
     Questions.value = data
   }
 
+  const form = document.querySelector("#form")
+
   onMounted(() => {
     getQuestions()
   })
@@ -20,7 +22,11 @@
     <!-- <ul>
       <li v-for="question in Questions" >{{ question.user }}<img :src="user.profile_pic" ></li>
     </ul> -->
-
+    <form action="" id="form" class="form_container">
+     <label for="search" class="form_label">Search: </label>
+     <input type="text" name="search" id="search" class="input_field"/>
+     <input type="submit" value="Update Information" class="btn"/>
+   </form>
     <div class="projcard-container">
     
     <div v-for="question in Questions"class="projcard projcard-blue">
@@ -250,4 +256,6 @@ body {
 .projcard-button{
   font-size:16px;
 }
+
+
 </style>
