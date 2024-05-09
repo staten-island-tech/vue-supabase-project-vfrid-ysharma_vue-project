@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import CreateView from '../views/CreateView.vue'
 import SubmittedView from '../views/SubmittedView.vue'
-
+import QuestionView from '@/views/QuestionView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +29,11 @@ const router = createRouter({
       path: '/submitted',
       name: 'submitted',
       component: SubmittedView
+    },
+    {
+      path: '/question/:id',
+      name: 'question',
+      component: QuestionView
     },
   ]
 })
