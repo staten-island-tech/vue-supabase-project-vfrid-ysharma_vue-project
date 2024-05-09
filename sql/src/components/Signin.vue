@@ -1,16 +1,18 @@
-<script setup>
+<script setup lang="ts">
+
   import { ref, onMounted } from 'vue'
   import { supabase } from "../lib/supabaseClient"
-
+  import {useSessionStore} from "@/stores/usersession.ts"
   const showsignin =ref(true)
-   const email = ref("")
-   const password = ref("")
-   const f_name =ref("")
-   const l_name=ref("")
-   const grade =ref("")
-   const username=ref("")
-   const osis=ref("")
- 
+  const email = ref("")
+  const password = ref("")
+  const f_name =ref("")
+  const l_name=ref("")
+  const grade =ref("")
+  const username=ref("")
+  const osis=ref("")
+  const sessionStore = useSessionStore()
+
   async function signup() {
     console.log(username.value)
   //   if (
@@ -42,6 +44,7 @@
   }
   console.log(data)
   console.log(error)
+  sessionStore.setSession(data)
   }
   async function signin() {
     let { data, error } = await supabase.auth.signInWithPassword({
@@ -53,6 +56,7 @@
       }
     console.log(data)
     console.log(error)
+    sessionStore.setSession(data)
     }
   function showsignupfunc() {
     showsignin.value= !showsignin.value
@@ -82,5 +86,4 @@
       <button @click="showsignupfunc">Want to Sign In?</button>
 
     </div>
-
   </template>
