@@ -8,8 +8,13 @@
     const { data } = await supabase.from('questions').select()
     Questions.value = data
   }
-
-  const form = document.querySelector("#form")
+  const searched = ref(null)
+  // const form = document.querySelector("#form");
+  // form.addEventListener("submit", function(e){
+  //   e.preventDefault();
+  //   const searched = document.querySelector("#search")
+  //   console.log(searched.value)
+  // })
 
   onMounted(() => {
     getQuestions()
@@ -19,14 +24,11 @@
   </script>
 
   <template>
-    <!-- <ul>
-      <li v-for="question in Questions" >{{ question.user }}<img :src="user.profile_pic" ></li>
-    </ul> -->
-    <form action="" id="form" class="form_container">
-     <label for="search" class="form_label">Search: </label>
-     <input type="text" name="search" id="search" class="input_field"/>
-     <input type="submit" value="Update Information" class="btn"/>
-   </form>
+    <div class="form_container">
+      <label for="search" class="form_label">Search: </label>
+     <input type="text" name="search" id="search" class="input_field" v-model="searched"/>
+     <RouterLink :to="'/search/'+searched" class="search_btn">Update Information</RouterLink>
+    </div>
     <div class="projcard-container">
     
     <div v-for="question in Questions"class="projcard projcard-blue">
@@ -55,6 +57,7 @@ body {
 }
 .projcard-container {
   margin: 50px 0;
+  justify-content: center;
 }
 
 /* Actual Code: */
@@ -67,6 +70,8 @@ body {
   margin-right: auto;
   margin-bottom: 10px;
   width: 1000px;
+  justify-content: center;
+
 }
 .projcard {
   position: relative;
@@ -81,6 +86,8 @@ body {
   cursor: pointer;
   box-shadow: 0 4px 21px -12px rgba(0, 0, 0, .66);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
+  justify-content: center;
+
 }
 .projcard:hover {
   box-shadow: 0 34px 32px -33px rgba(0, 0, 0, .18);
@@ -256,6 +263,12 @@ body {
 .projcard-button{
   font-size:16px;
 }
-
-
+.input_field{
+  width:200px;
+}
+.form_container{
+  display:inline;
+  font-family: 'Voces', 'Open Sans', arial, sans-serif;
+  font-weight: 600;
+}
 </style>

@@ -20,6 +20,11 @@ const router = createRouter({
       path: '/profile/:username',
       name: 'profile',
       component: Profile
+    },
+    {
+      path:'/search/:search',
+      name:'search',
+      component: Questions
     }
 
   ]
