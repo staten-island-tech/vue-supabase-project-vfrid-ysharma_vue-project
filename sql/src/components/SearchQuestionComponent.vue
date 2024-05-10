@@ -8,7 +8,7 @@ const props = defineProps<{
   img_url:String
 
 }>()
-const url = '/questions/'+ props.id
+const url = '/question/'+ props.id
 </script>
 
 <template>
