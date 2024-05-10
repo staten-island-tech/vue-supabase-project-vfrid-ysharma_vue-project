@@ -44,7 +44,8 @@
   }
   console.log(data)
   console.log(error)
-  sessionStore.setSession(data)
+  sessionStore.session=data
+  console.log(sessionStore.session)
   }
   async function signin() {
     let { data, error } = await supabase.auth.signInWithPassword({
@@ -56,7 +57,8 @@
       }
     console.log(data)
     console.log(error)
-    sessionStore.setSession(data)
+    sessionStore.session=data
+    console.log(sessionStore.session)
     }
   function showsignupfunc() {
     showsignin.value= !showsignin.value
