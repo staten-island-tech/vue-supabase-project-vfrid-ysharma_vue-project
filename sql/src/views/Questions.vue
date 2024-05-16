@@ -24,6 +24,92 @@
   </script>
 
   <template>
+    <div class="navbar_container">
+      <ul>
+        <li class="dropdown"><a href="#"  class="dropbtn">Math</a>
+          <div class="dropdown_content">
+            <a>Algebra I</a>
+            <a>Geometry</a>
+            <a>Algebra II</a>
+            <a>AP PreCalculus</a>
+            <a>AP Calculus AB</a>
+            <a>AP Calculus BC</a>
+            <a>AP Statistics</a>
+            <a>Multivariable Calculus</a>
+            <a>Math Team</a>
+          </div>
+        </li>
+        <li class="dropdown"><a href="#"  class="dropbtn">Technology</a>
+          <div class="dropdown_content">
+            <a>Intro to STEM Engineering and Robotics</a>
+            <a>Intro to AV Engineering and TV Studio</a>
+            <a>Computer Science and Engineering</a>
+            <a>C.A.D.</a>
+            <a>AP Computer Science Principles</a>
+            <a>Advanced Computer Applications and Development</a>
+            <a>Electronics and Green Technology</a>
+            <a>Advanced AV Engineering and TV Studio 1</a>
+            <a>Advanced AV Engineering and TV Studio 2/3</a>
+            <a>Fundamentals of Engineering</a>
+          </div>
+        </li>
+        <li class="dropdown"><a href="#" class="dropbtn">Science</a>
+          <div class="dropdown_content">
+            <a>Chemistry</a>
+            <a>Regents Physics</a>
+            <a>Physics in Medicine</a>
+            <a>AP Physics 1</a>
+            <a>AP Physics 2</a>
+            <a>AP Physics C</a>
+            <a>Applied Physics</a>
+            <a>AP Environmental Science</a>
+            <a>AP Psychology</a>
+            <a>Forensic Science</a>
+            <a>Biotechnology</a>
+            <a>Human Anatomy and Physiology</a>
+            <a>S.E.R.P.</a>
+          </div>
+        </li>
+        <li class="dropdown"><a href="#" class="dropbtn">English</a>
+          <div class="dropdown_content">
+            <a>English 1/2</a>
+            <a>English 3/4</a>
+            <a>English 5/6</a>
+            <a>AP English Language</a>
+            <a>AP English Literature</a>
+            <a>Modern Mythology: Gods and Monsters</a>
+            <a>Creative Writing</a>
+            <a>Publications</a>
+            <a>Public Speaking</a>
+          </div>
+        </li>
+        <li class="dropdown"><a href="#" class="dropbtn">Social Studies</a>
+          <div class="dropdown_content">
+            <a>AP World History: Ancient</a>
+            <a>AP World History: Modern</a>
+            <a>APUSH</a>
+            <a>APUSH through Film, Art, and Music</a>
+            <a>AP US Government and Politics</a>
+            <a>Participation in Government</a>
+            <a>Economics</a>
+            <a>AP Macroeconomics</a>
+          </div>
+        </li>
+        <li class="dropdown"><a href="#" class="dropbtn">Russian</a>
+          <div class="dropdown_content">
+            <a>Russian Language 1</a>
+            <a>Russian Language: Heritage 1</a>
+            <a>Russian Language 2</a>
+            <a>Russian Language: Accelerated</a>
+            <a>Russian Langugae: Advanced Heritage</a>
+            <a>Russian Language 3</a>
+            <a>College Russian Accelerated</a>
+            <a>College Russian Advanced Heritage</a>
+            <a>Russian for Business</a>
+          </div>
+        </li>
+      </ul>
+    </div>
     <div class="form_container">
       <label for="search" class="form_label">Search: </label>
      <input type="text" name="search" id="search" class="input_field" v-model="searched"/>
@@ -54,11 +140,13 @@ body {
   font-size: 14px;
   overflow: scroll;
   overflow-x: hidden;
-}
-.projcard-container {
-  margin: 50px 0;
   justify-content: center;
 }
+/* .projcard-container {
+  margin: 50px 0;
+  justify-content: center;
+  left: 50%;
+} */
 
 /* Actual Code: */
 .projcard-container,
@@ -66,8 +154,9 @@ body {
   box-sizing: border-box;
 }
 .projcard-container {
-  margin-left: auto;
-  margin-right: auto;
+  margin-top: 50px;
+  margin-left: 50%;
+  margin-right: 50%;
   margin-bottom: 10px;
   width: 1000px;
   justify-content: center;
@@ -270,5 +359,57 @@ body {
   display:inline;
   font-family: 'Voces', 'Open Sans', arial, sans-serif;
   font-weight: 600;
+  height: 50px;
+  position:absolute;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a, .dropbtn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+li.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 </style>
