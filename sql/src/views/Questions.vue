@@ -15,6 +15,12 @@
   //   const searched = document.querySelector("#search")
   //   console.log(searched.value)
   // })
+  async function subject_search(subject){
+    console.log(subject)
+    const {data} = await supabase.from('questions').select().eq('class_name',subject)
+    Questions.value = data
+  }
+
 
   onMounted(() => {
     getQuestions()
@@ -28,84 +34,86 @@
       <ul>
         <li class="dropdown"><a href="#"  class="dropbtn">Math</a>
           <div class="dropdown_content">
-            <a>Algebra I</a>
-            <a>Geometry</a>
-            <a>Algebra II</a>
-            <a>AP PreCalculus</a>
-            <a>AP Calculus AB</a>
-            <a>AP Calculus BC</a>
-            <a>AP Statistics</a>
-            <a>Multivariable Calculus</a>
-            <a>Math Team</a>
+            <a @click="subject_search('Algebra I');">Algebra I</a>
+            <a @click="subject_search('Geometry');">Geometry</a>
+            <a @click="subject_search('Algebra II');">Algebra II</a>
+            <a @click="subject_search('AP PreCalculus');">AP PreCalculus</a>
+            <a @click="subject_search('AP Calculus AB');">AP Calculus AB</a>
+            <a @click="subject_search('AP Calculus BC');">AP Calculus BC</a>
+            <a @click="subject_search('AP Statistics');">AP Statistics</a>
+            <a @click="subject_search('Multivariable Calculus');">Multivariable Calculus</a>
+            <a @click="subject_search('Math Team');">Math Team</a>
           </div>
         </li>
         <li class="dropdown"><a href="#"  class="dropbtn">Technology</a>
           <div class="dropdown_content">
-            <a>Intro to STEM Engineering and Robotics</a>
-            <a>Intro to AV Engineering and TV Studio</a>
-            <a>Computer Science and Engineering</a>
-            <a>C.A.D.</a>
-            <a>AP Computer Science Principles</a>
-            <a>Advanced Computer Applications and Development</a>
-            <a>Electronics and Green Technology</a>
-            <a>Advanced AV Engineering and TV Studio 1</a>
-            <a>Advanced AV Engineering and TV Studio 2/3</a>
-            <a>Fundamentals of Engineering</a>
+            <a @click="subject_search('Intro to STEM Engineering and Robotics');">Intro to STEM Engineering and Robotics</a>
+            <a @click="subject_search('Intro to AV Engineering and TV Studio');">Intro to AV Engineering and TV Studio</a>
+            <a @click="subject_search('Computer Science and Engineering');">Computer Science and Engineering</a>
+            <a @click="subject_search('C.A.D.');">C.A.D.</a>
+            <a @click="subject_search('AP Computer Science Principles');">AP Computer Science Principles</a>
+            <a @click="subject_search('Advanced Computer Applications and Development');">Advanced Computer Applications and Development</a>
+            <a @click="subject_search('Electronics and Green Technology');">Electronics and Green Technology</a>
+            <a @click="subject_search('Advanced AV Engineering and TV Studio 1');">Advanced AV Engineering and TV Studio 1</a>
+            <a @click="subject_search('Advanced AV Engineering and TV Studio 2/3');">Advanced AV Engineering and TV Studio 2/3</a>
+            <a @click="subject_search('Fundamentals of Engineering');">Fundamentals of Engineering</a>
           </div>
         </li>
         <li class="dropdown"><a href="#" class="dropbtn">Science</a>
           <div class="dropdown_content">
-            <a>Chemistry</a>
-            <a>Regents Physics</a>
-            <a>Physics in Medicine</a>
-            <a>AP Physics 1</a>
-            <a>AP Physics 2</a>
-            <a>AP Physics C</a>
-            <a>Applied Physics</a>
-            <a>AP Environmental Science</a>
-            <a>AP Psychology</a>
-            <a>Forensic Science</a>
-            <a>Biotechnology</a>
-            <a>Human Anatomy and Physiology</a>
-            <a>S.E.R.P.</a>
+            <a @click="subject_search('Chemistry')">Chemistry</a>
+            <a @click="subject_search('AP Chemistry')">AP Chemistry</a>
+            <a @click="subject_search('Physics in Medicine')">Physics in Medicine</a>
+            <a @click="subject_search('Regents Physics')">Regents Physics</a>
+            <a @click="subject_search('AP Physics 1');">AP Physics 1</a>
+            <a @click="subject_search('AP Physics 2');">AP Physics 2</a>
+            <a @click="subject_search('AP Physics C');">AP Physics C</a>
+            <a @click="subject_search('Applied Physics');">Applied Physics</a>
+            <a @click="subject_search('AP Environmental Science');">AP Environmental Science</a>
+            <a @click="subject_search('AP Psychology');">AP Psychology</a>
+            <a @click="subject_search('Forensic Science');">Forensic Science</a>
+            <a @click="subject_search('AP Biology');">AP Biology</a>
+            <a @click="subject_search('Biotechnology');">Biotechnology</a>
+            <a @click="subject_search('Human Anatomy and Physiology');">Human Anatomy and Physiology</a>
+            <a @click="subject_search('S.E.R.P.');">S.E.R.P.</a>
           </div>
         </li>
         <li class="dropdown"><a href="#" class="dropbtn">English</a>
           <div class="dropdown_content">
-            <a>English 1/2</a>
-            <a>English 3/4</a>
-            <a>English 5/6</a>
-            <a>AP English Language</a>
-            <a>AP English Literature</a>
-            <a>Modern Mythology: Gods and Monsters</a>
-            <a>Creative Writing</a>
-            <a>Publications</a>
-            <a>Public Speaking</a>
+            <a @click="subject_search('English 3/4');">English 3/4</a>
+            <a @click="subject_search('English 1/2');">English 1/2</a>
+            <a @click="subject_search('AP English Language');">AP English Language</a>
+            <a @click="subject_search('English 5/6');">English 5/6</a>
+            <a @click="subject_search('AP English Literature');">AP English Literature</a>
+            <a @click="subject_search('Modern Mythology: Gods and Monsters');">Modern Mythology: Gods and Monsters</a>
+            <a @click="subject_search('Creative Writing');">Creative Writing</a>
+            <a @click="subject_search('Publications');">Publications</a>
+            <a @click="subject_search('Public Speaking');">Public Speaking</a>
           </div>
         </li>
         <li class="dropdown"><a href="#" class="dropbtn">Social Studies</a>
           <div class="dropdown_content">
-            <a>AP World History: Ancient</a>
-            <a>AP World History: Modern</a>
-            <a>APUSH</a>
-            <a>APUSH through Film, Art, and Music</a>
-            <a>AP US Government and Politics</a>
-            <a>Participation in Government</a>
-            <a>Economics</a>
-            <a>AP Macroeconomics</a>
+            <a @click="subject_search('AP World History: Modern');">AP World History: Modern</a>
+            <a @click="subject_search('AP World History: Ancient');">AP World History: Ancient</a>
+            <a @click="subject_search('APUSH');">APUSH</a>
+            <a @click="subject_search('APUSH through Film, Art, and Music');">APUSH through Film, Art, and Music</a>
+            <a @click="subject_search('AP US Government and Politics');">AP US Government and Politics</a>
+            <a @click="subject_search('Participation in Government');">Participation in Government</a>
+            <a @click="subject_search('Economics');">Economics</a>
+            <a @click="subject_search('AP Macroeconomics');">AP Macroeconomics</a>
           </div>
         </li>
         <li class="dropdown"><a href="#" class="dropbtn">Russian</a>
           <div class="dropdown_content">
-            <a>Russian Language 1</a>
-            <a>Russian Language: Heritage 1</a>
-            <a>Russian Language 2</a>
-            <a>Russian Language: Accelerated</a>
-            <a>Russian Langugae: Advanced Heritage</a>
-            <a>Russian Language 3</a>
-            <a>College Russian Accelerated</a>
-            <a>College Russian Advanced Heritage</a>
-            <a>Russian for Business</a>
+            <a @click="subject_search('Russian Language 1');">Russian Language 1</a>
+            <a @click="subject_search('Russian Language: Heritage 1');">Russian Language: Heritage 1</a>
+            <a @click="subject_search('Russian Language 2');">Russian Language 2</a>
+            <a @click="subject_search('Russian Language: Accelerated');">Russian Language: Accelerated</a>
+            <a @click="subject_search('Russian Language: Advanced Heritage');">Russian Language: Advanced Heritage</a>
+            <a @click="subject_search('Russian Language 3');">Russian Language 3</a>
+            <a @click="subject_search('Collee Russian Accelerated');">College Russian Accelerated</a>
+            <a @click="subject_search('College Russian Advanced Heritage');">College Russian Advanced Heritage</a>
+            <a @click="subject_search('Russian for Business');">Russian for Business</a>
           </div>
         </li>
       </ul>
@@ -361,16 +369,16 @@ body {
   font-family: 'Voces', 'Open Sans', arial, sans-serif;
   font-weight: 600;
   height: 50px;
-  top:50px;
+  top:335px;
   position:absolute;
+  z-index: 2;
 }
 .navbar_container{
   display:inline;
   position:absolute;
   top:0%;
   z-index: 2;
-
-  /* overflow:hidden; */
+  height: 50px;
 }
 .navbar_container li {
   float: left;
@@ -418,8 +426,5 @@ body {
 .dropdown:hover .dropdown_content {
   display: block;
   overflow-y: visible;
-}
-.dropdown:hover, .navbar_container{
-  height: 100%;
 }
 </style>
