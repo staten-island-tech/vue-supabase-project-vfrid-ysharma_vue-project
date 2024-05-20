@@ -57,8 +57,10 @@
       }
     console.log(data)
     console.log(error)
-    sessionStore.session=data
-    console.log(sessionStore.session)
+    if(error==null){
+      sessionStore.session=data
+      console.log(sessionStore.session)
+      }
     }
   function showsignupfunc() {
     showsignin.value= !showsignin.value
