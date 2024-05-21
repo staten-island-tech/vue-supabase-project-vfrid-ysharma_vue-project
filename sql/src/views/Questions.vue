@@ -21,7 +21,6 @@
     Questions.value = data
   }
 
-
   onMounted(() => {
     getQuestions()
   })
@@ -120,7 +119,7 @@
     </div>
     <div class="form_container">
       <label for="search" class="form_label">Search: </label>
-     <input type="text" name="search" id="search" class="input_field" v-model="searched"/>
+     <input type="text" name="search" id="search" class="input_field" v-model="searched" autocomplete="off"/>
      <RouterLink :to="'/search/'+searched" class="search_btn">Update Information</RouterLink>
     </div>
     <div class="projcard-container">
