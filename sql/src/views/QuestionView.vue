@@ -10,6 +10,8 @@ let question = ref();
 let changed = ref(false);
 let loading = ref(true); // Added loading state
 let question_id,title,text,answered,subject,teacher,image,grade
+let message = ''
+let messages = ref()
 async function getEntries() {
   try {
     const { data, error } = await supabase.from('questions').select().eq('id', id);
@@ -29,7 +31,41 @@ async function getEntries() {
     console.error("Failed to fetch question:", error);
     // Handle error appropriately
   }
+
+
+  try {
+    const { data, error } = await supabase.from('comments').select().eq('question_id', id);
+    if (error) throw error; // Throw error if any occurs
+    messages.value = data;
+    console.log(messages)
+  } catch (error) {
+    console.error("Failed to fetch question:", error);
+    // Handle error appropriately
+  }
 }
+
+
+
+async function submit_supa() {
+      if(message != ''){
+  const { data, error } = await supabase.from('comments').insert({
+    user: 'simonsaff',
+    question_id: id,
+    message: message
+
+  });
+
+
+  if (error){ console.error('Error inserting data:', error);}
+  else {
+    console.log('Data inserted:', data);
+    router.push('/submitted')
+  }
+}else{
+  alert("Please submit a non-blank comment")
+}
+
+    }
 
 onMounted(() => {
   getEntries();
@@ -48,8 +84,22 @@ onMounted(() => {
   <div class = 'comment_form'>
     <form action="">
       <h3>Comments</h3>
-      <textarea name="" id="" rows="10"></textarea>
+      <textarea v-model="message" name="" id="" rows="10"></textarea>
+      <button type = 'button' @click="submit_supa" class="formbold-btn">Submit</button>
     </form>
+  </div>
+
+  <div class="comments">
+    <div class = "comment_section" v-for="i in messages">
+      <div class = "comment comment_gray" v-if="i.id % 2 == 0">
+        <div class="profile">{{ i.user }}</div>
+        <div class="body">{{i.message}}</div>
+      </div>
+      <div class = "comment comment_white" v-if="i.id % 2 == 1">
+        <div class="profile">{{i.user}}</div>
+        <div class="body">{{i.message}}</div>
+      </div>
+    </div>
   </div>
 </div>
 </template>
@@ -88,6 +138,24 @@ textarea{
   border-radius: 10px;
   resize: vertical;
 }
+.comment_section{
+  padding:6px;
+  background-color: rgb(234, 234, 234);
+
+}
+.comment{
+  padding:50px;
+}
+
+.comment_gray{
+  background-color: rgb(234, 234, 234);
+}
+
+.comment_white{
+  background-color: white;
+}
+
+
 
 
   .poppins-thin {
