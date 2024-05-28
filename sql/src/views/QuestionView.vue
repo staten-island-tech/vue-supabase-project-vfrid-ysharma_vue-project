@@ -85,7 +85,6 @@ onMounted(() => {
     <h1 class = 'title'>{{ title }}</h1>
     <h3 class = 'subject'>{{ subject }}</h3>
     <p>{{ text }}</p>
-    <button v-if="own_question" @click="accepted">Mark as accepted</button>
   </div>
 
   <div class = 'comment_form'>
@@ -101,10 +100,12 @@ onMounted(() => {
       <div class = "comment comment_gray" v-if="i.id % 2 == 0">
         <div class="profile">{{ i.user }}</div>
         <div class="body">{{i.message}}</div>
+        <button v-if="own_question" @click="accepted">Mark as accepted</button>
       </div>
       <div class = "comment comment_white" v-if="i.id % 2 == 1">
         <div class="profile">{{i.user}}</div>
         <div class="body">{{i.message}}</div>
+        <button v-if="own_question" @click="accepted">Mark as accepted</button>
       </div>
     </div>
   </div>
