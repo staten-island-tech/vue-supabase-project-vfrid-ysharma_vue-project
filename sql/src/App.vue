@@ -1,22 +1,14 @@
-<script setup>
-  import { ref, onMounted } from 'vue'
-  import { supabase } from './lib/supabaseClient'
+<script setup lang="ts">
+import { RouterLink, RouterView } from 'vue-router'
+import HelloWorld from './components/HelloWorld.vue'
+import { supabase } from 'lib/supabaseClient'
+</script>
+<template>
 
-  const Users = ref([])
 
-  async function getUsers() {
-    const { data } = await supabase.from('Users').select()
-    Users.value = data
-  }
+  <RouterView />
+</template>
 
-  onMounted(() => {
-    getUsers()
-  })
-  console.log(Users)
-  </script>
+<style scoped>
 
-  <template>
-    <ul>
-      <li v-for="user in Users" >{{ user.username }}<img :src="user.profile_pic" ></li>
-    </ul>
-  </template>
+</style>

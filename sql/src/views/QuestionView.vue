@@ -1,0 +1,277 @@
+<script setup lang="ts">
+import { useRoute, useRouter } from 'vue-router';
+import { supabase } from '../lib/supabaseClient';
+import { onMounted, ref } from 'vue';
+
+const router = useRouter();
+const route = useRoute();
+const id = route.params.id;
+let question = ref();
+let changed = ref(false);
+let loading = ref(true); // Added loading state
+let question_id,title,text,answered,subject,teacher,image,grade
+let message = ''
+let messages = ref()
+let own_question = true
+async function getEntries() {
+  try {
+    const { data, error } = await supabase.from('questions').select().eq('id', id);
+    if (error) throw error; // Throw error if any occurs
+    question.value = data;
+    changed.value = true;
+    loading.value = false; // Set loading to false once data is fetched
+    question_id = question.value[0].id
+    title = question.value[0].question_name
+    text = question.value[0].question_text
+    answered = question.value[0].answered
+    subject = question.value[0].subject
+    teacher = question.value[0].teacher
+    image = question.value[0].image
+    grade = question.value[0].grade
+  } catch (error) {
+    console.error("Failed to fetch question:", error);
+    // Handle error appropriately
+  }
+
+
+  try {
+    const { data, error } = await supabase.from('comments').select().eq('question_id', id);
+    if (error) throw error; // Throw error if any occurs
+    messages.value = data;
+    console.log(messages)
+  } catch (error) {
+    console.error("Failed to fetch question:", error);
+    // Handle error appropriately
+  }
+}
+
+
+
+async function submit_supa() {
+      if(message != ''){
+  const { data, error } = await supabase.from('comments').insert({
+    user: 'simonsaff',
+    question_id: id,
+    message: message
+
+  });
+
+
+  if (error){ console.error('Error inserting data:', error);}
+  else {
+    console.log('Data inserted:', data);
+    router.push('/submitted')
+  }
+}else{
+  alert("Please submit a non-blank comment")
+}
+
+    }
+
+
+
+async function accepted(){
+  const { error } = await supabase.from('questions').update({ answered: true }).eq('id', id)
+}
+onMounted(() => {
+  getEntries();
+});
+</script>
+
+<template>
+  <div class="container">
+<div v-if='loading' class="loading-state">Loading...</div>
+  <div v-else-if='changed' class="poppins-medium container-card">
+    <h1 class = 'title'>{{ title }}</h1>
+    <h3 class = 'subject'>{{ subject }}</h3>
+    <p>{{ text }}</p>
+    <button v-if="own_question" @click="accepted">Mark as accepted</button>
+  </div>
+
+  <div class = 'comment_form'>
+    <form action="">
+      <h3>Comments</h3>
+      <textarea v-model="message" name="" id="" rows="10"></textarea>
+      <button type = 'button' @click="submit_supa" class="formbold-btn">Submit</button>
+    </form>
+  </div>
+
+  <div class="comments">
+    <div class = "comment_section" v-for="i in messages">
+      <div class = "comment comment_gray" v-if="i.id % 2 == 0">
+        <div class="profile">{{ i.user }}</div>
+        <div class="body">{{i.message}}</div>
+      </div>
+      <div class = "comment comment_white" v-if="i.id % 2 == 1">
+        <div class="profile">{{i.user}}</div>
+        <div class="body">{{i.message}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+</template>
+
+<style scoped>
+.container{
+  font-family: 'Poppins';
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.comment_form{
+width:90vw
+}
+.container-card{
+  border: 1px solid black;
+  border-radius: 20px;
+  margin:0%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Poppins';
+}
+.loading-state {
+  text-align: center;
+  padding-top: 20%;
+}
+.subject{
+  opacity: 90%;
+  color:rgb(0, 10, 24);
+  font-size: 15px;
+}
+
+textarea{
+  border-radius: 10px;
+  resize: vertical;
+}
+.comment_section{
+  padding:6px;
+  background-color: rgb(234, 234, 234);
+
+}
+.comment{
+  padding:50px;
+}
+
+.comment_gray{
+  background-color: rgb(234, 234, 234);
+}
+
+.comment_white{
+  background-color: white;
+}
+
+
+
+
+  .poppins-thin {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.poppins-extralight {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.poppins-light {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.poppins-extrabold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.poppins-black {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.poppins-thin-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.poppins-extralight-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.poppins-light-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.poppins-regular-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.poppins-medium-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.poppins-semibold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.poppins-bold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.poppins-extrabold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.poppins-black-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+
+</style>
