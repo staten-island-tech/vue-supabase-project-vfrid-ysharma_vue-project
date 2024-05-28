@@ -2,17 +2,23 @@
   import { ref, onMounted } from 'vue'
   import { supabase } from '../lib/supabaseClient'
   import {useRoute,useRouter} from 'vue-router'
+  import { useSessionStore } from '@/stores/usersession.ts'  
+
+  const sessionStore = useSessionStore()
+  console.log("session:")
+  console.log(sessionStore.session.user.id)
   const info = ref([])
 
   const router = useRouter()
   const route = useRoute()
   const username = route.params.username
-  console.log(username)
   async function getProfile() {
     const { data } = await supabase.from('profiles')
       .select()
       .eq('username',username )
     info.value = data
+    console.log("viewed user info:")
+    console.log(info.value[0].id)
   }
   // async function updateProfile(grade,email,f_name,l_name){
   //   const {new_data} = await supabase.from('Users')
@@ -86,7 +92,7 @@
         <h1 class="full_name_title"> {{data.f_name + " "+ data.l_name}} </h1>
       </div>
       <h2 class="username">{{ data.username }}</h2>
-      <div class="change_pic"><button class="edit_pic_button" @click="change_pic_form()">Change Profile Picture</button></div>
+      <div class="change_pic" v-if="data.id===sessionStore.session.user.id"><button class="edit_pic_button" @click="change_pic_form()">Change Profile Picture</button></div>
     </div>
     <div class="info">
       <h2>{{"Grade: "+ data.grade }}</h2>

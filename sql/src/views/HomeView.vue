@@ -17,15 +17,14 @@ function print(){
     <div class="buttons">    <button>Log In</button><button>Sign Up</button></div>
   </div>
 
-    <div class="navbar">
+    <!-- <div class="navbar">
       <ul>
         <li><RouterLink :to="'/questions'">Questions</RouterLink> </li>
         <li><RouterLink :to="'/create'">Create Question</RouterLink> </li>
-        <li><RouterLink :to="'/profile'">Profile</RouterLink> </li> <!-- add +username to route once merged w yan -->
+        <li><RouterLink :to="'/profile'">Profile</RouterLink> </li> 
       </ul>
     </div>
-    <!-- <img > -->
-    <p class="paragraph">At SITHS TutorBase, we believe in the power of peer-to-peer learning. Our online platform connects students across all grade levels, fostering a collaborative community where knowledge is shared and academic growth is nurtured. Whether you're struggling with a challenging concept or seeking a fresh perspective, our network of dedicated students is here to lend a helping hand. Through our intuitive discussion forums, you can engage with fellow classmates, ask questions, and receive insightful explanations from those who have recently mastered the material. Together, we can demystify complex subjects, reinforce understanding, and cultivate a passion for learning. Join our vibrant community today and experience the transformative power of students supporting students on their academic journeys.</p>
+    <p class="paragraph">At SITHS TutorBase, we believe in the power of peer-to-peer learning. Our online platform connects students across all grade levels, fostering a collaborative community where knowledge is shared and academic growth is nurtured. Whether you're struggling with a challenging concept or seeking a fresh perspective, our network of dedicated students is here to lend a helping hand. Through our intuitive discussion forums, you can engage with fellow classmates, ask questions, and receive insightful explanations from those who have recently mastered the material. Together, we can demystify complex subjects, reinforce understanding, and cultivate a passion for learning. Join our vibrant community today and experience the transformative power of students supporting students on their academic journeys.</p> -->
 </template>
 
 <style scoped>
