@@ -12,6 +12,7 @@ let loading = ref(true); // Added loading state
 let question_id,title,text,answered,subject,teacher,image,grade
 let message = ''
 let messages = ref()
+let own_question = true
 async function getEntries() {
   try {
     const { data, error } = await supabase.from('questions').select().eq('id', id);
@@ -67,6 +68,11 @@ async function submit_supa() {
 
     }
 
+
+
+async function accepted(){
+  const { error } = await supabase.from('questions').update({ answered: true }).eq('id', id)
+}
 onMounted(() => {
   getEntries();
 });
@@ -79,6 +85,7 @@ onMounted(() => {
     <h1 class = 'title'>{{ title }}</h1>
     <h3 class = 'subject'>{{ subject }}</h3>
     <p>{{ text }}</p>
+    <button v-if="own_question" @click="accepted">Mark as accepted</button>
   </div>
 
   <div class = 'comment_form'>
