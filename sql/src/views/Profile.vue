@@ -86,7 +86,7 @@
         <h1 class="full_name_title"> {{data.f_name + " "+ data.l_name}} </h1>
       </div>
       <h2 class="username">{{ data.username }}</h2>
-      <div class="change_pic"><button class="edit_pic_button" @click="change_pic_form()">Change Profile Picture</button></div>
+      <!-- <div class="change_pic"><button class="edit_pic_button" @click="change_pic_form()">Change Profile Picture</button></div> -->
     </div>
     <div class="info">
       <h2>{{"Grade: "+ data.grade }}</h2>

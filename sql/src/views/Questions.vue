@@ -19,8 +19,14 @@
     console.log(subject)
     const {data} = await supabase.from('questions').select().eq('class_name',subject)
     Questions.value = data
+    document.querySelector(".return_to_q").style.display = "block";
   }
-
+  function reload(){
+    location.reload()
+  }
+  function show_return(){
+    document.querySelector(".return_to_q").style.display="block";
+  }
   onMounted(() => {
     getQuestions()
   })
@@ -120,7 +126,8 @@
     <div class="form_container">
       <label for="search" class="form_label">Search: </label>
      <input type="text" name="search" id="search" class="input_field" v-model="searched" autocomplete="off"/>
-     <RouterLink :to="'/search/'+searched" class="search_btn">Update Information</RouterLink>
+     <RouterLink :to="'/search/'+searched" class="search_btn" @click="show_return()">Update Information</RouterLink>
+     <div class="return_to_q"><RouterLink :to="'/questions'" @click="reload()">Return To All</RouterLink></div>
     </div>
     <div class="projcard-container">
     
@@ -425,5 +432,8 @@ body {
 .dropdown:hover .dropdown_content {
   display: block;
   overflow-y: visible;
+}
+.return_to_q{
+  display:none;
 }
 </style>
