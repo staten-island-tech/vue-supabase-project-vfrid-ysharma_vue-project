@@ -1,8 +1,12 @@
 <script setup>
 import {RouterLink, RouterView} from 'vue-router'
-import { useSessionStore } from '@/stores/usersession.ts'
+import { useSessionStore } from '@/stores/usersession.ts'  
+import { ref, onMounted } from 'vue'
+  import { supabase } from './lib/supabaseClient'
+  import {RouterLink, RouterView} from 'vue-router'
 const sessionStore = useSessionStore()
 console.log(sessionStore.session)
+
   </script>
   
 
