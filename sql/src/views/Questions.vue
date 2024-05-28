@@ -19,13 +19,17 @@
     console.log(subject)
     const {data} = await supabase.from('questions').select().eq('class_name',subject)
     Questions.value = data
-    document.querySelector(".return_to_q").style.display = "block";
+    show_return();
   }
   function reload(){
-    location.reload()
+    getQuestions();
+    hide_return();
   }
   function show_return(){
     document.querySelector(".return_to_q").style.display="block";
+  }
+  function hide_return(){
+    document.querySelector(".return_to_q").style.display="none";
   }
   onMounted(() => {
     getQuestions()
@@ -434,6 +438,8 @@ body {
   overflow-y: visible;
 }
 .return_to_q{
+  margin: 15px;
   display:none;
+  font-size: 20px;
 }
 </style>
