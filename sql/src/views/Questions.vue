@@ -151,7 +151,7 @@
     
   </div>
   </template>
-  <style>
+  <style scoped>
 body {
   font-family: 'Open Sans', arial, sans-serif;
   color: #333;
@@ -179,6 +179,7 @@ body {
   margin-bottom: 10px;
   width: 1000px;
   justify-content: center;
+  margin-top: 60px;
 
 }
 .projcard {

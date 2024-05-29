@@ -14,60 +14,18 @@
       .eq('username',username )
     info.value = data
   }
-  // async function updateProfile(grade,email,f_name,l_name){
-  //   const {new_data} = await supabase.from('Users')
-  //     .upsert({username:username, grade:grade, email:email, f_name:f_name, l_name:l_name})
-  //     .select()
-  //     .eq('username',username)
-  //   console.log(grade,email,f_name,l_name)
-  //   info.value = new_data
-  //   }
-  // function openForm(){
-  //   const inform = document.querySelector(".info")
-  //   inform.innerHTML=(
-  //     `    <form action="" id="form" class="form_container">
-  //     <label for="grade" class="form_label">Grade: </label>
-  //     <input type="text" name="grade" id="grade" class="input_field"/>
-  //     <label for="email" class="form_label">Email: </label>
-  //     <input type="text" name="email" id="email" class="input_field"/>
-  //     <label for="f_name" class="form_label">First Name: </label>
-  //     <input type="text" name="f_name" id="f_name" class="input_field"/>
-  //     <label for="l_name" class="form_label">Last Name: </label>
-  //     <input type="text" name="l_name" id="l_name" class="input_field"/>
-  //     <input type="submit" value="Update Information" class="btn"/>
-  //   </form>`
-  //   )
-  //   const grade = document.querySelector("#grade").value
-  //   const email = document.querySelector("#email").value
-  //   const f_name = document.querySelector("#f_name").value
-  //   const l_name = document.querySelector("#l_name").value
-  //   console.log('changed',grade,email,f_name,l_name)
-  //   const form = document.querySelector("#form")
-  //   form.addEventListener("submit", function(e){
-  //   e.preventDefault();
-  //   updateProfile(grade,email,f_name,l_name)
-  // })
-  // }
   function change_pic_form(){
+    const id = info.value[0].id
     const change_pic_div = document.querySelector(".change_pic")
-    change_pic_div.innerHTML="<form action='' id='form' class='form_container'><label for='pic' class='form_label'>Profile Picture URL: </label><input type='text' name='pic' id='pic' class='input_field'/><input type='submit' value='Update Information' class='btn'/></form>"
+    change_pic_div.innerHTML="<form action='' id='form' class='form_container'><label for='pic' class='form_label'>Profile Picture URL: </label><input  autocomplete='off' type='text' name='pic' id='pic' class='input_field'/><input type='submit' value='Update Information' class='btn'/></form>"
     const form = document.querySelector("#form")
     form.addEventListener("submit", async function(e){
     e.preventDefault();
     const pic_url = document.querySelector("#pic").value
     console.log(pic_url)
-    // const { data, error } = await supabase
-    //   .storage
-    //   .from('profile_pics')
-    //   .upload(username+'-pic', pic_url, {
-    //     cacheControl: '3600',
-    //     upsert: false
-    //   })
-    const imgBlob = pic_url.blob();
-    const d = new Date();
-    const time = d.getTime();
-    const {data,error} = await supabase.storage.from('ama').upload(`${time}`,imgBlob,{cacheControl:'3600',upsert: false})
-        // location.reload()
+    const {dat} = await supabase.from('profiles').update({profile_pic:pic_url}).eq('id',id)
+    getProfile()
+    location.reload()
   })
   }
   onMounted(() => {
@@ -86,7 +44,7 @@
         <h1 class="full_name_title"> {{data.f_name + " "+ data.l_name}} </h1>
       </div>
       <h2 class="username">{{ data.username }}</h2>
-      <!-- <div class="change_pic"><button class="edit_pic_button" @click="change_pic_form()">Change Profile Picture</button></div> -->
+      <div class="change_pic"><button class="edit_pic_button" @click="change_pic_form()">Change Profile Picture</button></div>
     </div>
     <div class="info">
       <h2>{{"Grade: "+ data.grade }}</h2>
@@ -136,7 +94,24 @@ body {
   font-size: 18px;
   font-style: italic;
 }
-button{
+button, .btn{
   font-style: bold;
+  text-decoration: none;
+  color:#0088FF;
+  transition: 0.4s;
+  padding: 3px;
+  background-color: hsla(216, 100%, 37%, 0.07);
+  border-radius: 6px;
+  border: none;
+  height: 28px;
+}
+.form_container{
+  display: inline;
+    font-family: 'Voces', 'Open Sans', arial, sans-serif;
+    font-weight: 600;
+    height: 50px;
+    position: absolute;
+    margin: 5px;
+    font-style:bold;
 }
 </style>
