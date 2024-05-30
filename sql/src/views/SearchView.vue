@@ -1,6 +1,5 @@
 <script setup>
 import { useRoute,useRouter } from 'vue-router';
-import Card from 'primevue/card';
 
 import { ref, onMounted } from 'vue'
   import { supabase } from '../lib/supabaseClient'

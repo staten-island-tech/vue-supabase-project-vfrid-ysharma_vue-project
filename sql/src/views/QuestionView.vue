@@ -2,17 +2,19 @@
 import { useRoute, useRouter } from 'vue-router';
 import { supabase } from '../lib/supabaseClient';
 import { onMounted, ref } from 'vue';
+import { useSessionStore } from '@/stores/usersession.ts'  
 
+const sessionStore = useSessionStore()
 const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 let question = ref();
 let changed = ref(false);
 let loading = ref(true); // Added loading state
-let question_id,title,text,answered,subject,teacher,image,grade
+let question_id,title,text,answered,subject,teacher,image,grade, author
 let message = ''
 let messages = ref()
-let own_question = true
+let own_question = false
 async function getEntries() {
   try {
     const { data, error } = await supabase.from('questions').select().eq('id', id);
@@ -20,6 +22,7 @@ async function getEntries() {
     question.value = data;
     changed.value = true;
     loading.value = false; // Set loading to false once data is fetched
+    author = question.value[0].user
     question_id = question.value[0].id
     title = question.value[0].question_name
     text = question.value[0].question_text
@@ -28,6 +31,12 @@ async function getEntries() {
     teacher = question.value[0].teacher
     image = question.value[0].image
     grade = question.value[0].grade
+    if (sessionStore.session != null){
+      console.log(sessionStore.session.user.user_metadata.username)
+      if(sessionStore.session.user.user_metadata.username==author){
+        own_question=true
+      }
+    }
   } catch (error) {
     console.error("Failed to fetch question:", error);
     // Handle error appropriately
