@@ -19,8 +19,18 @@
     console.log(subject)
     const {data} = await supabase.from('questions').select().eq('class_name',subject)
     Questions.value = data
+    show_return();
   }
-
+  function reload(){
+    getQuestions();
+    hide_return();
+  }
+  function show_return(){
+    document.querySelector(".return_to_q").style.display="block";
+  }
+  function hide_return(){
+    document.querySelector(".return_to_q").style.display="none";
+  }
   onMounted(() => {
     getQuestions()
   })
@@ -120,7 +130,8 @@
     <div class="form_container">
       <label for="search" class="form_label">Search: </label>
      <input type="text" name="search" id="search" class="input_field" v-model="searched" autocomplete="off"/>
-     <RouterLink :to="'/search/'+searched" class="search_btn">Update Information</RouterLink>
+     <RouterLink :to="'/search/'+searched" class="search_btn" @click="show_return()">Update Information</RouterLink>
+     <div class="return_to_q"><RouterLink :to="'/questions'" @click="reload()">Return To All</RouterLink></div>
     </div>
     <div class="projcard-container">
     
@@ -140,7 +151,7 @@
     
   </div>
   </template>
-  <style>
+  <style scoped>
 body {
   font-family: 'Open Sans', arial, sans-serif;
   color: #333;
@@ -168,6 +179,7 @@ body {
   margin-bottom: 10px;
   width: 1000px;
   justify-content: center;
+  margin-top: 60px;
 
 }
 .projcard {
@@ -425,5 +437,10 @@ body {
 .dropdown:hover .dropdown_content {
   display: block;
   overflow-y: visible;
+}
+.return_to_q{
+  margin: 15px;
+  display:none;
+  font-size: 20px;
 }
 </style>
