@@ -25,7 +25,8 @@
     console.log(pic_url)
     const {dat} = await supabase.from('profiles').update({profile_pic:pic_url}).eq('id',id)
     getProfile()
-    location.reload()
+    // location.reload()
+    change_pic_div.innerHTML="<button class='edit_pic_button' @click='change_pic_form()'>Change Profile Picture</button>"
   })
   }
   onMounted(() => {
@@ -77,12 +78,13 @@ body {
   font-size: 25px;
 }
 .profile_pic{
-  height: 25%;
-  width: 25%;
-  border-radius: 70px;
+  height: 150px;
+  width: 150px;
+  border-radius: 90px;
   border-color: #333;
   border-style:dashed;
   border-width: 4px;
+  overflow: hidden;
 }
 .inline{
   display:inline-flex;

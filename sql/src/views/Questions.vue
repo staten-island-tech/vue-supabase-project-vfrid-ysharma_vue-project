@@ -8,7 +8,7 @@
     const { data } = await supabase.from('questions').select()
     Questions.value = data
   }
-  const searched = ref(null)
+  const name = ref(null)
   // const form = document.querySelector("#form");
   // form.addEventListener("submit", function(e){
   //   e.preventDefault();
@@ -129,8 +129,8 @@
     </div>
     <div class="form_container">
       <label for="search" class="form_label">Search: </label>
-     <input type="text" name="search" id="search" class="input_field" v-model="searched" autocomplete="off"/>
-     <RouterLink :to="'/search/'+searched" class="search_btn" @click="show_return()">Update Information</RouterLink>
+     <input type="text" name="search" id="search" class="input_field" v-model="name" autocomplete="off"/>
+     <RouterLink :to="'/search/'+name" class="search_btn" @click="show_return()">Update Information</RouterLink>
      <div class="return_to_q"><RouterLink :to="'/questions'" @click="reload()">Return To All</RouterLink></div>
     </div>
     <div class="projcard-container">
