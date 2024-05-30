@@ -12,6 +12,7 @@ console.log(sessionStore.session)
     <RouterView/>
     <div v-if="sessionStore.session===null"><RouterLink to="/LogIn" >Go to Login</RouterLink></div>
     <RouterLink to="/">Go to Home</RouterLink>
+    <RouterLink to="/questions">Questions</RouterLink>
     <RouterLink to="/profile/v_friddy">v_friddy</RouterLink>
     <RouterLink to="/profile/yanick">yanick</RouterLink>
 

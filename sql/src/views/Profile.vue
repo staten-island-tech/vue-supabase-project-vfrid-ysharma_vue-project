@@ -5,8 +5,6 @@
   import { useSessionStore } from '@/stores/usersession.ts'  
 
   const sessionStore = useSessionStore()
-  console.log("session:")
-  console.log(sessionStore.session.user.id)
   const info = ref([])
 
   const router = useRouter()
@@ -31,7 +29,7 @@
     console.log(pic_url)
     const {dat} = await supabase.from('profiles').update({profile_pic:pic_url}).eq('id',id)
     getProfile()
-    location.reload()
+    // location.reload()
   })
   }
   onMounted(() => {
@@ -50,7 +48,9 @@
         <h1 class="full_name_title"> {{data.f_name + " "+ data.l_name}} </h1>
       </div>
       <h2 class="username">{{ data.username }}</h2>
-      <div class="change_pic" v-if="data.id===sessionStore.session.user.id"><button class="edit_pic_button" @click="change_pic_form()">Change Profile Picture</button></div>
+      <div v-if="sessionStore.session!=null">
+        <div class="change_pic" v-if="data.id===sessionStore.session.user.id"><button class="edit_pic_button" @click="change_pic_form()">Change Profile Picture</button></div>
+      </div>
     </div>
     <div class="info">
       <h2>{{"Grade: "+ data.grade }}</h2>
