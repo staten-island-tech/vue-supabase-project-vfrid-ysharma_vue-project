@@ -15,5 +15,6 @@ console.log(sessionStore.session)
     <RouterLink to="/questions">Questions</RouterLink>
     <RouterLink to="/profile/v_friddy">v_friddy</RouterLink>
     <RouterLink to="/profile/yanick">yanick</RouterLink>
+    <RouterLink to="/create">ask question</RouterLink>
 
   </template>

@@ -59,7 +59,7 @@ async function getEntries() {
 async function submit_supa() {
       if(message != ''){
   const { data, error } = await supabase.from('comments').insert({
-    user: 'simonsaff',
+    user: sessionStore.session.user.user_metadata.username,
     question_id: id,
     message: message
 
@@ -79,8 +79,9 @@ async function submit_supa() {
 
 
 
-async function accepted(){
+async function accepted(answerid){
   const { error } = await supabase.from('questions').update({ answered: true }).eq('id', id)
+  const { err } = await supabase.from('comments').update({ is_answer: true }).eq('id', answerid)
 }
 onMounted(() => {
   getEntries();
@@ -97,11 +98,14 @@ onMounted(() => {
   </div>
 
   <div class = 'comment_form'>
+    <div v-if="sessionStore.session!=null">
     <form action="">
       <h3>Comments</h3>
       <textarea v-model="message" name="" id="" rows="10"></textarea>
       <button type = 'button' @click="submit_supa" class="formbold-btn">Submit</button>
     </form>
+  </div>
+  <div v-else">Please Sign in to comment</div>
   </div>
 
   <div class="comments">
@@ -109,12 +113,12 @@ onMounted(() => {
       <div class = "comment comment_gray" v-if="i.id % 2 == 0">
         <div class="profile">{{ i.user }}</div>
         <div class="body">{{i.message}}</div>
-        <button v-if="own_question" @click="accepted">Mark as accepted</button>
+        <button v-if="own_question && !answered" @click="accepted">Mark as accepted</button>
       </div>
       <div class = "comment comment_white" v-if="i.id % 2 == 1">
         <div class="profile">{{i.user}}</div>
         <div class="body">{{i.message}}</div>
-        <button v-if="own_question" @click="accepted">Mark as accepted</button>
+        <button v-if="own_question && !answered" @click="accepted">Mark as accepted</button>
       </div>
     </div>
   </div>
