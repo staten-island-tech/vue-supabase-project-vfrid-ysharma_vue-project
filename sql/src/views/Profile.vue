@@ -17,7 +17,7 @@
   function change_pic_form(){
     const id = info.value[0].id
     const change_pic_div = document.querySelector(".change_pic")
-    change_pic_div.innerHTML="<form action='' id='form' class='form_container'><label for='pic' class='form_label'>Profile Picture URL: </label><input  autocomplete='off' type='text' name='pic' id='pic' class='input_field'/><input type='submit' value='Update Information' class='btn'/></form>"
+    change_pic_div.innerHTML="<form action='' id='form' class='form_container'><label for='pic' class='form_label'>Profile Picture Image Address: </label><input  autocomplete='off' type='text' name='pic' id='pic' class='input_field'/><input type='submit' value='Update Information' class='btn'/></form>"
     const form = document.querySelector("#form")
     form.addEventListener("submit", async function(e){
     e.preventDefault();
