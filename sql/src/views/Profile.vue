@@ -70,14 +70,10 @@ body {
   font-size: 14px;
   overflow: scroll;
   overflow-x: hidden;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
 }
+
 .overall{
-  margin-left: 0;
-  margin-right: auto;
-  margin-bottom: 10px;
+  justify-self: center;
 }
 .full_name_title{
   margin: 10px;

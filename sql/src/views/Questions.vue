@@ -174,8 +174,8 @@ body {
 }
 .projcard-container {
   margin-top: 50px;
-  margin-left: 50%;
-  margin-right: 50%;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 10px;
   width: 1000px;
   justify-content: center;
