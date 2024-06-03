@@ -70,6 +70,9 @@ body {
   font-size: 14px;
   overflow: scroll;
   overflow-x: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .overall{
   margin-left: 0;
@@ -83,12 +86,13 @@ body {
   font-size: 25px;
 }
 .profile_pic{
-  height: 25%;
-  width: 25%;
-  border-radius: 70px;
+  height: 150px;
+  width: 150px;
+  border-radius: 90px;
   border-color: #333;
   border-style:dashed;
   border-width: 4px;
+  overflow: hidden;
 }
 .inline{
   display:inline-flex;
