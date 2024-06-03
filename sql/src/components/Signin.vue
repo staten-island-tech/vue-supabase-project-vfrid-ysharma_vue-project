@@ -80,7 +80,7 @@
     <div v-else class="signup">
       <input v-model="email" type="text" placeholder="E-mail" />
       <input v-model="username" type="text" placeholder="Username"/>
-      <input v-model="password" type="text" placeholder="Password" />
+      <input v-model="password" type="password" placeholder="Password" />
       <input v-model="f_name" type="text" placeholder="First Name" />
       <input v-model="l_name" type="text" placeholder="Last Name">
       <input v-model="grade" type="number" placeholder="Your Grade" />
