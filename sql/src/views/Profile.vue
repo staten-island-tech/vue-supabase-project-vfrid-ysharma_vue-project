@@ -2,22 +2,26 @@
   import { ref, onMounted } from 'vue'
   import { supabase } from '../lib/supabaseClient'
   import {useRoute,useRouter} from 'vue-router'
+  import { useSessionStore } from '@/stores/usersession.ts'  
+
+  const sessionStore = useSessionStore()
   const info = ref([])
 
   const router = useRouter()
   const route = useRoute()
   const username = route.params.username
-  console.log(username)
   async function getProfile() {
     const { data } = await supabase.from('profiles')
       .select()
       .eq('username',username )
     info.value = data
+    console.log("viewed user info:")
+    console.log(info.value[0].id)
   }
   function change_pic_form(){
     const id = info.value[0].id
     const change_pic_div = document.querySelector(".change_pic")
-    change_pic_div.innerHTML="<form action='' id='form' class='form_container'><label for='pic' class='form_label'>Profile Picture Image Address: </label><input  autocomplete='off' type='text' name='pic' id='pic' class='input_field'/><input type='submit' value='Update Information' class='btn'/></form>"
+    change_pic_div.innerHTML="<form action='' id='form' class='form_container'><label for='pic' class='form_label'>Profile Picture URL: </label><input  autocomplete='off' type='text' name='pic' id='pic' class='input_field'/><input type='submit' value='Update Information' class='btn'/></form>"
     const form = document.querySelector("#form")
     form.addEventListener("submit", async function(e){
     e.preventDefault();
@@ -26,7 +30,6 @@
     const {dat} = await supabase.from('profiles').update({profile_pic:pic_url}).eq('id',id)
     getProfile()
     // location.reload()
-    change_pic_div.innerHTML="<button class='edit_pic_button' @click='change_pic_form()'>Change Profile Picture</button>"
   })
   }
   onMounted(() => {
@@ -45,7 +48,9 @@
         <h1 class="full_name_title"> {{data.f_name + " "+ data.l_name}} </h1>
       </div>
       <h2 class="username">{{ data.username }}</h2>
-      <div class="change_pic"><button class="edit_pic_button" @click="change_pic_form()">Change Profile Picture</button></div>
+      <div v-if="sessionStore.session!=null">
+        <div class="change_pic" v-if="data.id===sessionStore.session.user.id"><button class="edit_pic_button" @click="change_pic_form()">Change Profile Picture</button></div>
+      </div>
     </div>
     <div class="info">
       <h2>{{"Grade: "+ data.grade }}</h2>
@@ -65,6 +70,9 @@ body {
   font-size: 14px;
   overflow: scroll;
   overflow-x: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .overall{
   margin-left: 0;
