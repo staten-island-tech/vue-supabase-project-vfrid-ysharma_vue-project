@@ -2,17 +2,19 @@
 import { useRoute, useRouter } from 'vue-router';
 import { supabase } from '../lib/supabaseClient';
 import { onMounted, ref } from 'vue';
+import { useSessionStore } from '@/stores/usersession.ts'  
 
+const sessionStore = useSessionStore()
 const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
 let question = ref();
 let changed = ref(false);
 let loading = ref(true); // Added loading state
-let question_id,title,text,answered,subject,teacher,image,grade
+let question_id,title,text,answered,subject,teacher,image,grade, author
 let message = ''
 let messages = ref()
-let own_question = true
+let own_question = false
 async function getEntries() {
   try {
     const { data, error } = await supabase.from('questions').select().eq('id', id);
@@ -20,6 +22,7 @@ async function getEntries() {
     question.value = data;
     changed.value = true;
     loading.value = false; // Set loading to false once data is fetched
+    author = question.value[0].user
     question_id = question.value[0].id
     title = question.value[0].question_name
     text = question.value[0].question_text
@@ -28,6 +31,12 @@ async function getEntries() {
     teacher = question.value[0].teacher
     image = question.value[0].image
     grade = question.value[0].grade
+    if (sessionStore.session != null){
+      console.log(sessionStore.session.user.user_metadata.username)
+      if(sessionStore.session.user.user_metadata.username==author){
+        own_question=true
+      }
+    }
   } catch (error) {
     console.error("Failed to fetch question:", error);
     // Handle error appropriately
@@ -50,7 +59,7 @@ async function getEntries() {
 async function submit_supa() {
       if(message != ''){
   const { data, error } = await supabase.from('comments').insert({
-    user: 'simonsaff',
+    user: sessionStore.session.user.user_metadata.username,
     question_id: id,
     message: message
 
@@ -70,8 +79,9 @@ async function submit_supa() {
 
 
 
-async function accepted(){
+async function accepted(answerid){
   const { error } = await supabase.from('questions').update({ answered: true }).eq('id', id)
+  const { err } = await supabase.from('comments').update({ is_answer: true }).eq('id', answerid)
 }
 onMounted(() => {
   getEntries();
@@ -85,15 +95,17 @@ onMounted(() => {
     <h1 class = 'title'>{{ title }}</h1>
     <h3 class = 'subject'>{{ subject }}</h3>
     <p>{{ text }}</p>
-    <button v-if="own_question" @click="accepted">Mark as accepted</button>
   </div>
 
   <div class = 'comment_form'>
+    <div v-if="sessionStore.session!=null">
     <form action="">
       <h3>Comments</h3>
       <textarea v-model="message" name="" id="" rows="10"></textarea>
       <button type = 'button' @click="submit_supa" class="formbold-btn">Submit</button>
     </form>
+  </div>
+  <div v-else">Please Sign in to comment</div>
   </div>
 
   <div class="comments">
@@ -101,10 +113,12 @@ onMounted(() => {
       <div class = "comment comment_gray" v-if="i.id % 2 == 0">
         <div class="profile">{{ i.user }}</div>
         <div class="body">{{i.message}}</div>
+        <button v-if="own_question && !answered" @click="accepted">Mark as accepted</button>
       </div>
       <div class = "comment comment_white" v-if="i.id % 2 == 1">
         <div class="profile">{{i.user}}</div>
         <div class="body">{{i.message}}</div>
+        <button v-if="own_question && !answered" @click="accepted">Mark as accepted</button>
       </div>
     </div>
   </div>

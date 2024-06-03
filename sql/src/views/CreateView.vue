@@ -2,6 +2,9 @@
 import { useRoute,useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue'
 import { supabase } from '../lib/supabaseClient'
+import { useSessionStore } from '@/stores/usersession.ts'  
+
+  const sessionStore = useSessionStore()
   const router = useRouter()
   const route = useRoute()
   const name = route.params.name
@@ -22,7 +25,7 @@ import { supabase } from '../lib/supabaseClient'
     async function submit_supa() {
       if(question_name_f.value != '' && question_text_f.value != '' && subject_f.value != '' && teacher_f.value != '' && class_name_f.value != '' && grade_f.value != ''){
   const { data, error } = await supabase.from('questions').insert({
-    user: 'simonsaff', 
+    user: sessionStore.session.user.user_metadata.username, 
     question_name: question_name_f.value, 
     question_text: question_text_f.value, 
     answered: 'False', 
@@ -169,7 +172,7 @@ function submit(){
   <div id='main-wrapper'class="formbold-main-wrapper">
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
-  <div class="formbold-form-wrapper">
+  <div class="formbold-form-wrapper" v-if="sessionStore.session!=null"><
     <h2>Post A Question</h2>
     <form>
       <div class="formbold-input-group">
@@ -311,6 +314,9 @@ function submit(){
 
       <button type = 'button' @click="submit" class="formbold-btn">Submit</button>
     </form>
+  </div>
+  <div v-else>
+    Please Sign In
   </div>
 </div>
 </template>
