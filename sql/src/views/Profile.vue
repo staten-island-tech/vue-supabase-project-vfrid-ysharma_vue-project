@@ -21,7 +21,7 @@
   function change_pic_form(){
     const id = info.value[0].id
     const change_pic_div = document.querySelector(".change_pic")
-    change_pic_div.innerHTML="<form action='' id='form' class='form_container'><label for='pic' class='form_label'>Profile Picture URL: </label><input  autocomplete='off' type='text' name='pic' id='pic' class='input_field'/><input type='submit' value='Update Information' class='btn'/></form>"
+    change_pic_div.innerHTML="<form action='' id='form' class='form_container'><label for='pic' class='form_label'>Profile Picture Image Address: </label><input  autocomplete='off' type='text' name='pic' id='pic' class='input_field'/><input type='submit' value='Update Information' class='btn'/></form>"
     const form = document.querySelector("#form")
     form.addEventListener("submit", async function(e){
     e.preventDefault();
@@ -30,6 +30,7 @@
     const {dat} = await supabase.from('profiles').update({profile_pic:pic_url}).eq('id',id)
     getProfile()
     // location.reload()
+    change_pic_div.innerHTML="<button class='edit_pic_button' @click='change_pic_form()'>Change Profile Picture</button>"
   })
   }
   onMounted(() => {
@@ -83,12 +84,13 @@ body {
   font-size: 25px;
 }
 .profile_pic{
-  height: 25%;
-  width: 25%;
-  border-radius: 70px;
+  height: 150px;
+  width: 150px;
+  border-radius: 90px;
   border-color: #333;
   border-style:dashed;
   border-width: 4px;
+  overflow: hidden;
 }
 .inline{
   display:inline-flex;
