@@ -46,6 +46,7 @@
   console.log(error)
   sessionStore.session=data
   console.log(sessionStore.session)
+  this.$router.push('/')
   }
   async function signin() {
     let { data, error } = await supabase.auth.signInWithPassword({
@@ -61,6 +62,7 @@
       sessionStore.session=data
       console.log(sessionStore.session)
       }
+      this.$router.push('/')
     }
   function showsignupfunc() {
     showsignin.value= !showsignin.value
