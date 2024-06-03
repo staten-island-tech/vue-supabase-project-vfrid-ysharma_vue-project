@@ -2,6 +2,7 @@
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import { supabase } from 'lib/supabaseClient'
+// Vue.use(Dropdown);
 
 </script>
 
