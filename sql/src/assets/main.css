@@ -16,6 +16,7 @@ a,
   background-color: hsla(216, 100%, 37%, 0.07);
   border-radius: 6px;
   height: 28px;
+  margin: 1px;
 }
 
 @media (hover: hover) {

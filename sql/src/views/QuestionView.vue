@@ -89,8 +89,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container"> <RouterLink :to="'/questions'"><  Back To Questions</RouterLink>
 <div v-if='loading' class="loading-state">Loading...</div>
+
   <div v-else-if='changed' class="poppins-medium container-card">
     <h1 class = 'title'>{{ title }}</h1>
     <h3 class = 'subject'>{{ subject }}</h3>
@@ -111,12 +112,12 @@ onMounted(() => {
   <div class="comments">
     <div class = "comment_section" v-for="i in messages">
       <div class = "comment comment_gray" v-if="i.id % 2 == 0">
-        <div class="profile">{{ i.user }}</div>
+        <div class="profile"><RouterLink :to="'/profile/'+ i.user ">{{i.user}}</RouterLink></div>
         <div class="body">{{i.message}}</div>
         <button v-if="own_question && !answered" @click="accepted">Mark as accepted</button>
       </div>
       <div class = "comment comment_white" v-if="i.id % 2 == 1">
-        <div class="profile">{{i.user}}</div>
+        <div class="profile"><RouterLink :to="'/profile/'+ i.user ">{{i.user}}</RouterLink></div>
         <div class="body">{{i.message}}</div>
         <button v-if="own_question && !answered" @click="accepted">Mark as accepted</button>
       </div>
@@ -158,6 +159,8 @@ width:90vw
 textarea{
   border-radius: 10px;
   resize: vertical;
+  width: 450px;
+  border-width: 3px;
 }
 .comment_section{
   padding:6px;
@@ -166,6 +169,7 @@ textarea{
 }
 .comment{
   padding:50px;
+  width: 650px;
 }
 
 .comment_gray{

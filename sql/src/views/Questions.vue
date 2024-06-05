@@ -1,6 +1,8 @@
-<script setup>
+<script setup lang="ts">
   import { ref, onMounted } from 'vue'
   import { supabase } from '../lib/supabaseClient'
+  import { useSessionStore } from '@/stores/usersession.ts'  
+
 
   const Questions = ref([])
 
@@ -35,6 +37,17 @@
     getQuestions()
   })
   
+  
+  const sessionStore = useSessionStore()
+  function print(){
+    console.log(sessionStore.session.user)
+    console.log(sessionStore.session.session)
+
+  }
+  function logout(){
+    location.reload()
+  }
+  console.log(sessionStore.session)
   console.log(Questions)
   </script>
 
@@ -149,6 +162,11 @@
       </div>
     </div>
     
+  </div>
+  <div class="links">
+    <RouterLink :to="'/'">Home</RouterLink>
+    <div v-if="sessionStore.session!=null"><RouterLink :to="'/profile/'+sessionStore.session.user.user_metadata.username">Profile</RouterLink> <RouterLink :to="'/create'">Create Question</RouterLink></div>
+    <div v-if="sessionStore.session===null"><RouterLink to="/LogIn" >Go to Login</RouterLink></div> <div v-if="sessionStore.session!=null"><a @click="logout()">Logout</a></div>
   </div>
   </template>
   <style scoped>
@@ -442,5 +460,11 @@ body {
   margin: 15px;
   display:none;
   font-size: 20px;
+}
+.links{
+  position:absolute;
+  top: 300px;
+  right: 50px;
+  font-size: 30px;
 }
 </style>
