@@ -157,11 +157,9 @@ $(".previous").click(function(){
 });
 
 
-
-onMounted(() => {
-//   getEntries()
-})
-
+function dropdown_f(value){
+  class_name_f.value = value
+}
 function submit(){
   submit_supa()
 }
@@ -173,6 +171,8 @@ function myFunction() {
 function filterFunction() {
   const input = document.getElementById("myInput");
   const filter = input.value.toUpperCase();
+  // const filter ='S'
+  let txtValue
   const div = document.getElementById("myDropdown");
   const a = div.getElementsByTagName("a");
   let displayedCount = 0; // Keep track of displayed links
@@ -187,7 +187,14 @@ function filterFunction() {
     }
   }
 }
+
+
+
+onMounted(() => {
+//   getEntries()
 filterFunction()
+
+})
 
 </script>
 
@@ -226,10 +233,10 @@ filterFunction()
 
         
 <div class="dropdown">
-  <button type = 'button' onclick="myFunction()" class="dropbtn">Dropdown</button>
+  <button type = 'button' @click="myFunction" class="dropbtn">Dropdown</button>
   <div id="myDropdown" class="dropdown-content">
-    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-    <a href="#about">About</a>
+    <input type="text" placeholder="Search.." id="myInput" @keyup="filterFunction">
+    <a @click="dropdown_f('About')">About</a>
     <a href="#base">Base</a>
     <a href="#blog">Blog</a>
     <a href="#contact">Contact</a>
@@ -416,6 +423,10 @@ filterFunction()
   text-decoration: none;
   display: block;
 }
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
   body {
     font-family: 'Inter', sans-serif;
   }
