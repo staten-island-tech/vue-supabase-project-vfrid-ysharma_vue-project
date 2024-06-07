@@ -25,23 +25,23 @@ const url = '/question/'+ props.id
 
   <RouterLink :to="url">
   <Card style="width: 25rem; overflow: hidden;">
-    <template #header>
-      <img :src="props.img_url" alt="Profile image">
-    </template>
-    <template #title>{{title}}</template>
-    <template #subtitle>{{subject}}</template>
-    <template #content>
+    <!-- <>
+       <img :src="props.img_url" alt="Profile image">
+    </> -->
+    <h1>{{title}}</h1>
+    <h3>{{subject}}</h3>
+    <div>
         <p class="m-0">
             {{question_text}}
         </p>
-    </template>
-    <template #footer>
+    </div>
+    <h5>
         <div class="flex gap-3 mt-1">
           <p class="m-0">
             {{ class_name }}
 </p>
         </div>
-    </template>
+    </h5>
 </Card>
 </RouterLink>
 

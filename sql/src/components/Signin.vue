@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { useRouter } from 'vue-router'
 
   import { ref, onMounted } from 'vue'
   import { supabase } from "../lib/supabaseClient"
@@ -12,14 +13,9 @@
   const username=ref("")
   const osis=ref("")
   const sessionStore = useSessionStore()
+  const router=useRouter()
 
   async function signup() {
-    console.log(username.value)
-  //   if (
-  // email.value === "" || password.value === "" || f_name.value === "" || l_name.value === "" || grade.value === null || username.value === "" ||osis.value==""){
-  //   alert("please fill out all fields")
-  //   return
-  // }
   if(!(9<=grade.value<=12)){
       alert("Please enter a valid grade")
       console.log(grade.value)
@@ -46,6 +42,8 @@
   console.log(error)
   sessionStore.session=data
   console.log(sessionStore.session)
+  alert("sign-up success!")
+  router.push('/')
   }
   async function signin() {
     let { data, error } = await supabase.auth.signInWithPassword({
@@ -60,6 +58,8 @@
     if(error==null){
       sessionStore.session=data
       console.log(sessionStore.session)
+      alert("sign-in success!")
+      router.push('/')
       }
     }
   function showsignupfunc() {
@@ -70,7 +70,8 @@
   
 
   <template>
-    <div class="signin" v-if="showsignin">
+    <div class="container">
+      <div class="signin" v-if="showsignin">
       <input v-model="email" type="text" placeholder="E-mail" />
       <input v-model="password" type="text" placeholder="Password" />
       <button @click="signin">Sign In</button>
@@ -90,4 +91,32 @@
       <button @click="showsignupfunc">Want to Sign In?</button>
 
     </div>
+    </div>
   </template>
+  <style scoped>
+.signin{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 500px;
+  margin: 10px;
+}
+.container{
+  background-color: rgb(189, 211, 255);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 550px;
+  /* left: 50%;
+  right: 50%; */
+  justify-self: center;
+  border-radius: 10px;
+  margin: 50px;
+}
+#app{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+</style>

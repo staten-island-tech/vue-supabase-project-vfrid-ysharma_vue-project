@@ -1,43 +1,94 @@
-<script setup>
-  import { ref, onMounted } from 'vue'
-  import { supabase } from '../lib/supabaseClient'
-  import {useRoute,useRouter} from 'vue-router'
-  import { useSessionStore } from '@/stores/usersession.ts'  
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { supabase } from '../lib/supabaseClient'
+import { useRoute, useRouter } from 'vue-router'
+import { useSessionStore } from '@/stores/usersession.ts'
 
-  const sessionStore = useSessionStore()
-  const info = ref([])
+const sessionStore = useSessionStore()
+const info = ref<any[]>([])
 
-  const router = useRouter()
-  const route = useRoute()
-  const username = route.params.username
-  async function getProfile() {
-    const { data } = await supabase.from('profiles')
-      .select()
-      .eq('username',username )
-    info.value = data
-    console.log("viewed user info:")
-    console.log(info.value[0].id)
-  }
-  function change_pic_form(){
-    const id = info.value[0].id
-    const change_pic_div = document.querySelector(".change_pic")
-    change_pic_div.innerHTML="<form action='' id='form' class='form_container'><label for='pic' class='form_label'>Profile Picture Image Address: </label><input  autocomplete='off' type='text' name='pic' id='pic' class='input_field'/><input type='submit' value='Update Information' class='btn'/></form>"
+const router = useRouter()
+const route = useRoute()
+const username = route.params.username as string
+
+async function getProfile() {
+  const { data } = await supabase.from('profiles')
+    .select()
+    .eq('username', username)
+  info.value = data || []
+  console.log("viewed user info:")
+  console.log(info.value[0]?.id)
+}
+
+function change_pic_form() {
+  const id = info.value[0]?.id
+  const changePicDiv = document.querySelector(".change_pic")
+  if (id && changePicDiv) {
+    changePicDiv.innerHTML = "<form action='' id='form' class='form_container'><label for='pic' class='form_label'>Profile Picture URL: </label><input  autocomplete='off' type='text' name='pic' id='pic' class='input_field'/><input type='submit' value='Update Information' class='btn'/></form>"
     const form = document.querySelector("#form")
-    form.addEventListener("submit", async function(e){
-    e.preventDefault();
-    const pic_url = document.querySelector("#pic").value
-    console.log(pic_url)
-    const {dat} = await supabase.from('profiles').update({profile_pic:pic_url}).eq('id',id)
-    getProfile()
-    // location.reload()
-    change_pic_div.innerHTML="<button class='edit_pic_button' @click='change_pic_form()'>Change Profile Picture</button>"
-  })
+    if (form) {
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const picUrl = (document.querySelector("#pic") as HTMLInputElement)?.value
+        if (picUrl) {
+          console.log(picUrl)
+          const { data } = await supabase.from('profiles').update({ profile_pic: picUrl }).eq('id', id)
+          getProfile()
+          changePicDiv.innerHTML = "<button class='edit_pic_button' @click='change_pic_form()'>Change Profile Picture</button>"
+        }
+      })
+    }
+
   }
-  onMounted(() => {
-    getProfile()
-  })
+}
+
+onMounted(() => {
+  getProfile()
+})
+
+console.log(info)
+
+
+
+
+  // import { ref, onMounted } from 'vue'
+  // import { supabase } from '../lib/supabaseClient'
+  // import {useRoute,useRouter} from 'vue-router'
+  // import { useSessionStore } from '@/stores/usersession.ts'  
+
+  // const sessionStore = useSessionStore()
+  // const info = ref([])
+
+  // const router = useRouter()
+  // const route = useRoute()
+  // const username = route.params.username
+  // async function getProfile() {
+  //   const { data } = await supabase.from('profiles')
+  //     .select()
+  //     .eq('username',username )
+  //   info.value = data
+  //   console.log("viewed user info:")
+  //   console.log(info.value[0].id)
+  // }
+  // function change_pic_form(){
+  //   const id = info.value[0].id
+  //   const change_pic_div = document.querySelector(".change_pic")
+  //   change_pic_div.innerHTML="<form action='' id='form' class='form_container'><label for='pic' class='form_label'>Profile Picture URL: </label><input  autocomplete='off' type='text' name='pic' id='pic' class='input_field'/><input type='submit' value='Update Information' class='btn'/></form>"
+  //   const form = document.querySelector("#form")
+  //   form.addEventListener("submit", async function(e){
+  //   e.preventDefault();
+  //   const pic_url = document.querySelector("#pic").value
+  //   console.log(pic_url)
+  //   const {dat} = await supabase.from('profiles').update({profile_pic:pic_url}).eq('id',id)
+  //   getProfile()
+  //   // location.reload()
+  // })
+  // }
+  // onMounted(() => {
+  //   getProfile()
+  // })
   
-  console.log(info)
+  // console.log(info)
 
 </script>
 
@@ -72,10 +123,9 @@ body {
   overflow: scroll;
   overflow-x: hidden;
 }
+
 .overall{
-  margin-left: 0;
-  margin-right: auto;
-  margin-bottom: 10px;
+  justify-self: center;
 }
 .full_name_title{
   margin: 10px;
