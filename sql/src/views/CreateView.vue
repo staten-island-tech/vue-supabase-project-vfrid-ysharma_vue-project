@@ -10,6 +10,7 @@ import { useSessionStore } from '@/stores/usersession.ts'
   const name = route.params.name
   let question_text_f = ref('')
   const question_name_f = ref('')
+  const pic_address = ref('')
   const class_name_f = ref('')
   const subject_f = ref('')
   const teacher_f = ref('')
@@ -29,7 +30,8 @@ import { useSessionStore } from '@/stores/usersession.ts'
     subject: subject_f.value, 
     teacher: teacher_f.value, 
     class_name: class_name_f.value,
-    grade_level:sessionStore.session.user.user_metadata.grade
+    grade_level:sessionStore.session.user.user_metadata.grade,
+    image:pic_address.value
   });
 
 
@@ -249,7 +251,19 @@ function submit(){
           class="formbold-form-input"
         ></textarea>
       </div>
-
+      <div>
+        <label for="message" class="formbold-form-label">
+          Image Address
+        </label>
+        <textarea
+        v-model="pic_address"
+          rows="3"
+          name="message"
+          id="message"
+          placeholder="Image Adress"
+          class="formbold-form-input"
+        ></textarea>
+      </div>
       <button type = 'button' @click="submit" class="formbold-btn">Submit</button>
     </form>
   </div>

@@ -126,20 +126,20 @@ interface Identity {
   <template>
     <div class="container">
       <div class="signin" v-if="showsignin">
-      <input v-model="email" type="text" placeholder="E-mail" />
-      <input v-model="password" type="text" placeholder="Password" />
+      <input v-model="email" type="text" placeholder=" E-mail" />
+      <input v-model="password" type="text" placeholder=" Password" />
       <button @click="signin">Sign In</button>
       <button @click="showsignupfunc">Want to Sign Up?</button>
 
     </div>
     <div v-else class="signup">
-      <input v-model="email" type="text" placeholder="E-mail" />
-      <input v-model="username" type="text" placeholder="Username"/>
-      <input v-model="password" type="text" placeholder="Password" />
-      <input v-model="f_name" type="text" placeholder="First Name" />
-      <input v-model="l_name" type="text" placeholder="Last Name">
-      <input v-model="grade" type="number" placeholder="Your Grade" />
-      <input v-model="osis" type="number" placeholder="Osis Number"/>
+      <input v-model="email" type="text" placeholder=" E-mail" />
+      <input v-model="username" type="text" placeholder=" Username"/>
+      <input v-model="password" type="text" placeholder=" Password" />
+      <input v-model="f_name" type="text" placeholder=" First Name" />
+      <input v-model="l_name" type="text" placeholder=" Last Name">
+      <input v-model="grade" type="number" placeholder=" Your Grade" />
+      <input v-model="osis" type="number" placeholder=" Osis Number"/>
 
       <button @click="signup">Sign Up</button>
       <button @click="showsignupfunc">Want to Sign In?</button>
@@ -148,7 +148,7 @@ interface Identity {
     </div>
   </template>
   <style scoped>
-.signin{
+.signin,.signup{
   display:flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -172,5 +172,10 @@ interface Identity {
   display:flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+input{
+  border-radius: 6px;
+  border-width: 1px;
+  margin: 3px;
 }
 </style>

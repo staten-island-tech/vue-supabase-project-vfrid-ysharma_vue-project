@@ -8,7 +8,7 @@
 }
 
 a,
-.green {
+.green{
   text-decoration: none;
   color:#0088FF;
   transition: 0.4s;
@@ -17,12 +17,24 @@ a,
   border-radius: 6px;
   height: 28px;
   margin: 1px;
+  border-width: 0;
 }
 
+button{
+  background-color: white;
+  border-radius: 6px;
+  border-width: 1px;
+  transition: .1s;
+  margin: 3px;
+}
 @media (hover: hover) {
-  a:hover {
+  a:hover,{
     background-color: hsla(216, 100%, 37%, 0.2);
     border-radius: 6px;
   }
 }
 
+button:hover {
+  background-color: rgb(205, 232, 255);
+  transition: .1s;
+}

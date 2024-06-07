@@ -135,7 +135,7 @@ onMounted(() => {
 
 <template>
   <div class="container">
-    <RouterLink :to="'/questions'"><  Back To Questions</RouterLink>
+    <!-- <RouterLink :to="'/questions'"><  Back To Questions</RouterLink> -->
     <div v-if="loading" class="loading-state">Loading...</div>
 
     <div v-else-if="changed" class="poppins-medium container-card">

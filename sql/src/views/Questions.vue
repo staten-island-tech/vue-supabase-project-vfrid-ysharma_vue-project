@@ -492,4 +492,8 @@ body {
   right: 50px;
   font-size: 30px;
 }
+button{
+  height: 18px;
+  width:90px;
+}
 </style>
