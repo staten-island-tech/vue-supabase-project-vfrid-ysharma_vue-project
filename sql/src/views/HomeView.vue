@@ -18,15 +18,15 @@ console.log(sessionStore.session)
 
   <div class="h1">
     <h1>Welcome to TutorBase!</h1>
-    <div class="buttons">    <div v-if="sessionStore.session===null"><RouterLink to="/LogIn" >Go to Login</RouterLink></div> <div v-if="sessionStore.session!=null"><button @click="logout()">Logout</button></div></div>
-  </div>
+    <!-- <div class="buttons">    <div v-if="sessionStore.session===null"><RouterLink to="/LogIn" >Go to Login</RouterLink></div> <div v-if="sessionStore.session!=null"><button @click="logout()">Logout</button></div></div>
+  </div> -->
 
-    <div class="navbar">
+    <!-- <div class="navbar">
       <ul>
         <li><RouterLink :to="'/questions'">Questions</RouterLink> </li>
         <li><RouterLink :to="'/create'">Create Question</RouterLink> </li>
         <div v-if="sessionStore.session!=null"><li><RouterLink :to="'/profile/'+sessionStore.session.user.user_metadata.username">Profile</RouterLink> </li></div>
-      </ul>
+      </ul> -->
     </div>
     <p class="paragraph">At SITHS TutorBase, we believe in the power of peer-to-peer learning. Our online platform connects students across all grade levels, fostering a collaborative community where knowledge is shared and academic growth is nurtured. Whether you're struggling with a challenging concept or seeking a fresh perspective, our network of dedicated students is here to lend a helping hand. Through our intuitive discussion forums, you can engage with fellow classmates, ask questions, and receive insightful explanations from those who have recently mastered the material. Together, we can demystify complex subjects, reinforce understanding, and cultivate a passion for learning. Join our vibrant community today and experience the transformative power of students supporting students on their academic journeys.</p>
 </template>
@@ -65,7 +65,6 @@ li{
   margin-top: 200px;
 }
 .paragraph{
-  bottom:250px;
   position:absolute;
   font-size: 20px;
   left:30px;

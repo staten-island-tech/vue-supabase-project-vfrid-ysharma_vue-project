@@ -70,7 +70,8 @@
   
 
   <template>
-    <div class="signin" v-if="showsignin">
+    <div class="container">
+      <div class="signin" v-if="showsignin">
       <input v-model="email" type="text" placeholder="E-mail" />
       <input v-model="password" type="text" placeholder="Password" />
       <button @click="signin">Sign In</button>
@@ -90,4 +91,32 @@
       <button @click="showsignupfunc">Want to Sign In?</button>
 
     </div>
+    </div>
   </template>
+  <style scoped>
+.signin{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 500px;
+  margin: 10px;
+}
+.container{
+  background-color: rgb(189, 211, 255);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 550px;
+  /* left: 50%;
+  right: 50%; */
+  justify-self: center;
+  border-radius: 10px;
+  margin: 50px;
+}
+#app{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+</style>

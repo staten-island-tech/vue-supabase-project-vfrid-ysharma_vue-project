@@ -1,54 +1,113 @@
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue'
-  import { supabase } from '../lib/supabaseClient'
-  import { useSessionStore } from '@/stores/usersession.ts'  
+import { ref, onMounted } from 'vue'
+import { supabase } from '../lib/supabaseClient'
+import { useSessionStore } from '@/stores/usersession.ts'
 
+const Questions = ref<any[]>([])
 
-  const Questions = ref([])
+async function getQuestions() {
+  const { data } = await supabase.from('questions').select()
+  Questions.value = data || []
+}
 
-  async function getQuestions() {
-    const { data } = await supabase.from('questions').select()
-    Questions.value = data
+const name = ref<string | null>(null)
+
+async function subject_search(subject: string) {
+  console.log(subject)
+  const { data } = await supabase.from('questions').select().eq('class_name', subject)
+  Questions.value = data || []
+  show_return()
+}
+
+function reload() {
+  getQuestions()
+  hide_return()
+}
+
+function show_return() {
+  const returnToQ = document.querySelector('.return_to_q')
+  if (returnToQ) {
+    returnToQ.style.display = 'block'
   }
-  const name = ref(null)
-  // const form = document.querySelector("#form");
-  // form.addEventListener("submit", function(e){
-  //   e.preventDefault();
-  //   const searched = document.querySelector("#search")
-  //   console.log(searched.value)
+}
+
+function hide_return() {
+  const returnToQ = document.querySelector('.return_to_q')
+  if (returnToQ) {
+    returnToQ.style.display = 'none'
+  }
+}
+
+onMounted(() => {
+  getQuestions()
+})
+
+const sessionStore = useSessionStore()
+
+function print() {
+  console.log(sessionStore.session.user)
+  console.log(sessionStore.session.session)
+}
+
+function logout() {
+  location.reload()
+}
+
+console.log(sessionStore.session)
+console.log(Questions)
+
+
+
+  // import { ref, onMounted } from 'vue'
+  // import { supabase } from '../lib/supabaseClient'
+  // import { useSessionStore } from '@/stores/usersession.ts'  
+
+
+  // const Questions = ref([])
+
+  // async function getQuestions() {
+  //   const { data } = await supabase.from('questions').select()
+  //   Questions.value = data
+  // }
+  // const name = ref(null)
+  // // const form = document.querySelector("#form");
+  // // form.addEventListener("submit", function(e){
+  // //   e.preventDefault();
+  // //   const searched = document.querySelector("#search")
+  // //   console.log(searched.value)
+  // // })
+  // async function subject_search(subject){
+  //   console.log(subject)
+  //   const {data} = await supabase.from('questions').select().eq('class_name',subject)
+  //   Questions.value = data
+  //   show_return();
+  // }
+  // function reload(){
+  //   getQuestions();
+  //   hide_return();
+  // }
+  // function show_return(){
+  //   document.querySelector(".return_to_q").style.display="block";
+  // }
+  // function hide_return(){
+  //   document.querySelector(".return_to_q").style.display="none";
+  // }
+  // onMounted(() => {
+  //   getQuestions()
   // })
-  async function subject_search(subject){
-    console.log(subject)
-    const {data} = await supabase.from('questions').select().eq('class_name',subject)
-    Questions.value = data
-    show_return();
-  }
-  function reload(){
-    getQuestions();
-    hide_return();
-  }
-  function show_return(){
-    document.querySelector(".return_to_q").style.display="block";
-  }
-  function hide_return(){
-    document.querySelector(".return_to_q").style.display="none";
-  }
-  onMounted(() => {
-    getQuestions()
-  })
   
   
-  const sessionStore = useSessionStore()
-  function print(){
-    console.log(sessionStore.session.user)
-    console.log(sessionStore.session.session)
+  // const sessionStore = useSessionStore()
+  // function print(){
+  //   console.log(sessionStore.session.user)
+  //   console.log(sessionStore.session.session)
 
-  }
-  function logout(){
-    location.reload()
-  }
-  console.log(sessionStore.session)
-  console.log(Questions)
+  // }
+  // function logout(){
+  //   location.reload()
+  // }
+  // console.log(sessionStore.session)
+  // console.log(Questions)
   </script>
 
   <template>
@@ -163,11 +222,11 @@
     </div>
     
   </div>
-  <div class="links">
+  <!-- <div class="links">
     <RouterLink :to="'/'">Home</RouterLink>
     <div v-if="sessionStore.session!=null"><RouterLink :to="'/profile/'+sessionStore.session.user.user_metadata.username">Profile</RouterLink> <RouterLink :to="'/create'">Create Question</RouterLink></div>
     <div v-if="sessionStore.session===null"><RouterLink to="/LogIn" >Go to Login</RouterLink></div> <div v-if="sessionStore.session!=null"><a @click="logout()">Logout</a></div>
-  </div>
+  </div> -->
   </template>
   <style scoped>
 body {

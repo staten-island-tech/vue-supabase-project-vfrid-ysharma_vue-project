@@ -172,7 +172,8 @@ function submit(){
   <div id='main-wrapper'class="formbold-main-wrapper">
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
-  <div class="formbold-form-wrapper" v-if="sessionStore.session!=null"><RouterLink :to="'/'">< Back To Home</RouterLink><RouterLink :to="'/questions'"><  Back To Questions</RouterLink>
+  <div class="formbold-form-wrapper" v-if="sessionStore.session!=null">
+    <!-- <RouterLink :to="'/'">< Back To Home</RouterLink><RouterLink :to="'/questions'"><  Back To Questions</RouterLink> -->
     <h2>Post A Question</h2>
     <form>
       <div class="formbold-input-group">
