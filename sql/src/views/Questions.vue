@@ -3,6 +3,17 @@ import { ref, onMounted } from 'vue'
 import { supabase } from '../lib/supabaseClient'
 import { useSessionStore } from '@/stores/usersession.ts'
 
+interface User {
+  id: string;
+  user_metadata: {
+    username: string;
+  };
+}
+
+interface Session {
+  user: User | null;
+}
+
 const Questions = ref<any[]>([])
 
 async function getQuestions() {
@@ -30,6 +41,13 @@ function show_return() {
     (returnToQ as HTMLElement).style.display = 'block';
   }
 }
+async function removequestion(quest_id:number){
+  console.log(Questions.value)
+  const { data } = await supabase.from('questions').delete().eq('id', quest_id)
+  console.log(Questions.value)
+  reload()
+  console.log(Questions.value)
+}
 
 function hide_return() {
   const returnToQ = document.querySelector('.return_to_q');
@@ -37,6 +55,7 @@ function hide_return() {
     (returnToQ as HTMLElement).style.display = 'none';
   }
 }
+
 
 onMounted(() => {
   getQuestions()
@@ -161,6 +180,11 @@ console.log(Questions)
           <div class="projcard-bar"></div>
           <div class="projcard-description">{{ question.question_text }}</div>
           <div class="projcard-tagbox">Answered: {{ question.answered }}</div>
+          <div v-if="sessionStore.session && sessionStore.session.user">
+          <div v-if="question.user==sessionStore.session.user.user_metadata.username">
+            <button class="testing" @click="removequestion(question.id)">Delete Post</button>
+          </div>
+        </div>
         </div>
       </div>
     </div>
@@ -204,7 +228,7 @@ body {
 .projcard {
   position: relative;
   width: 100%;
-  height: 300px;
+  height: 400px;
   margin-bottom: 40px;
   border-radius: 10px;
   background-color: #fff;
