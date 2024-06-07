@@ -200,7 +200,7 @@ body {
   justify-content: center;
   margin-top: 60px;
 
-}
+} 
 .projcard {
   position: relative;
   width: 100%;
@@ -399,14 +399,14 @@ body {
   font-family: 'Voces', 'Open Sans', arial, sans-serif;
   font-weight: 600;
   height: 50px;
-  top:335px;
+  top:400px;
   position:absolute;
   z-index: 2;
 }
 .navbar_container{
   display:inline;
   position:absolute;
-  top:0%;
+  top:10%;
   z-index: 2;
   height: 50px;
 }
