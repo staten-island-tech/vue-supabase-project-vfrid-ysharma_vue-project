@@ -213,6 +213,7 @@ textarea{
 .comment{
   padding:50px;
   width: 650px;
+  margin: 15px;
 }
 
 .comment_gray{
