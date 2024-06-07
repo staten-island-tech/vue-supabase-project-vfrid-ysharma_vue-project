@@ -7,6 +7,7 @@ console.log(sessionStore.session)
 function logout(){
   location.reload()
 }
+
   </script>
   
 
@@ -15,7 +16,8 @@ function logout(){
       <ul class=navbar>
         <li><RouterLink :to="'/'">Home</RouterLink></li>
         <li><RouterLink :to="'/questions'">Questions</RouterLink></li>
-        <li><div v-if="sessionStore.session!=null"><RouterLink :to="'/profile/'+sessionStore.session.user.user_metadata.username">Profile</RouterLink></div></li>
+        <li>  <div v-if="sessionStore.session && sessionStore.session.user">
+          <RouterLink :to="'/profile/'+sessionStore.session.user.user_metadata.username">Profile</RouterLink></div></li>
         <li><div v-if="sessionStore.session!=null"> <RouterLink :to="'/create'">Create Question</RouterLink></div></li>
         <li><div v-if="sessionStore.session===null"><RouterLink to="/LogIn" >Go to Login</RouterLink></div> <div v-if="sessionStore.session!=null"><a @click="logout()">Logout</a></div></li>
       </ul>

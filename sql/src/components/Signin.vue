@@ -4,6 +4,66 @@
   import { ref, onMounted } from 'vue'
   import { supabase } from "../lib/supabaseClient"
   import {useSessionStore} from "@/stores/usersession.ts"
+  interface User {
+  id: string;
+  aud: string;
+  role: string;
+  email: string;
+  email_confirmed_at: string;
+  phone: string;
+  confirmed_at: string;
+  last_sign_in_at: string;
+  app_metadata: {
+    provider: string;
+    providers: string[];
+  };
+  user_metadata: {
+    email: string;
+    email_verified: boolean;
+    f_name: string;
+    grade: number;
+    l_name: string;
+    osis: number;
+    phone_verified: boolean;
+    sub: string;
+    username: string;
+  };
+  identities: Identity[];
+  created_at: string;
+  updated_at: string;
+  is_anonymous: boolean;
+}
+
+interface Session {
+  user: User | null;
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  expires_at: number;
+  refresh_token: string;
+}
+
+interface Identity {
+  identity_id: string;
+  id: string;
+  user_id: string;
+  identity_data: {
+    email: string;
+    email_verified: boolean;
+    f_name: string;
+    grade: number;
+    l_name: string;
+    osis: number;
+    phone_verified: boolean;
+    sub: string;
+    username: string;
+  };
+  provider: string;
+  last_sign_in_at: string;
+  created_at: string;
+  updated_at: string;
+  email: string;
+}
   const showsignin =ref(true)
   const email = ref("")
   const password = ref("")
@@ -16,11 +76,6 @@
   const router=useRouter()
 
   async function signup() {
-  if(!(9<=grade.value<=12)){
-      alert("Please enter a valid grade")
-      console.log(grade.value)
-      return
-    }
     let { data, error } = await supabase.auth.signUp({
     email: email.value,
     password: password.value,
@@ -29,7 +84,6 @@
         f_name: f_name.value,
         grade:Number(grade.value),
         l_name: l_name.value,
-        grade: grade.value,
         osis: Number(osis.value),
         username: username.value,
       }
@@ -40,7 +94,7 @@
   }
   console.log(data)
   console.log(error)
-  sessionStore.session=data
+  sessionStore.session= data as unknown as Session
   console.log(sessionStore.session)
   alert("sign-up success!")
   router.push('/')
@@ -56,7 +110,7 @@
     console.log(data)
     console.log(error)
     if(error==null){
-      sessionStore.session=data
+      sessionStore.session = data as unknown as Session;
       console.log(sessionStore.session)
       alert("sign-in success!")
       router.push('/')

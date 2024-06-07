@@ -101,7 +101,9 @@ console.log(info)
       </div>
       <h2 class="username">{{ data.username }}</h2>
       <div v-if="sessionStore.session!=null">
+        <div v-if="sessionStore.session.user!=null">
         <div class="change_pic" v-if="data.id===sessionStore.session.user.id"><button class="edit_pic_button" @click="change_pic_form()">Change Profile Picture</button></div>
+      </div>
       </div>
     </div>
     <div class="info">
