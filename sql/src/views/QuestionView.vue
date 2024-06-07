@@ -142,6 +142,7 @@ onMounted(() => {
       <h1 class="title">{{ title }}</h1>
       <h3 class="subject">{{ subject }}</h3>
       <p>{{ text }}</p>
+      <div v-if="image!='https://bupfgvujmfpqumcodids.supabase.co/storage/v1/object/sign/question_images/question_mark_default.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJxdWVzdGlvbl9pbWFnZXMvcXVlc3Rpb25fbWFya19kZWZhdWx0LnBuZyIsImlhdCI6MTcxMjMyNjA2MiwiZXhwIjoxNzQzODYyMDYyfQ.6Q7KiS7kH8vgT5wmBoyyth6adMKzOUAnvWwIFFgQ-uI&t=2024-04-05T14%3A12%3A17.644Z'"><img :src="image" class="image"></div>
     </div>
 
     <div class="comment_form">
@@ -348,6 +349,7 @@ textarea{
   font-weight: 900;
   font-style: italic;
 }
-
-
+.image{
+  max-height: 400px;
+}
 </style>
