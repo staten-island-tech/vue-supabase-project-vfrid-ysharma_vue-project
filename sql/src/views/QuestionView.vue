@@ -15,6 +15,7 @@ let question_id,title,text,answered,subject,teacher,image,grade, author
 let message = ''
 let messages = ref()
 let own_question = false
+let answer_id
 async function getEntries() {
   try {
     const { data, error } = await supabase.from('questions').select().eq('id', id);
@@ -47,10 +48,20 @@ async function getEntries() {
     const { data, error } = await supabase.from('comments').select().eq('question_id', id);
     if (error) throw error; // Throw error if any occurs
     messages.value = data;
+    messages.value.reverse()
     console.log(messages)
   } catch (error) {
     console.error("Failed to fetch question:", error);
     // Handle error appropriately
+  }
+  if(answered===true){
+    for(let i = 0; i<messages.value.length; i++){
+      if (messages.value[i].is_answer===true){
+        answer_id = messages.value[i].id
+      }
+      console.log(answer_id)
+    }
+
   }
 }
 
@@ -69,7 +80,9 @@ async function submit_supa() {
   if (error){ console.error('Error inserting data:', error);}
   else {
     console.log('Data inserted:', data);
-    router.push('/submitted')
+    getEntries()
+    message=""
+    alert("successfully added a comment!")
   }
 }else{
   alert("Please submit a non-blank comment")
@@ -79,10 +92,23 @@ async function submit_supa() {
 
 
 
-async function accepted(answerid){
-  const { error } = await supabase.from('questions').update({ answered: true }).eq('id', id)
-  const { err } = await supabase.from('comments').update({ is_answer: true }).eq('id', answerid)
+async function accepted(submittedid){
+  let { error } = await supabase.from('questions').update({ answered: true }).eq('id', id)
+  let { err } = await supabase.from('comments').update({ is_answer: true }).eq('id', submittedid)
+  console.log("ran the answered function")
+  console.log(submittedid)
+  console.log(answer_id)
+  getEntries()
 }
+async function unaccept(submittedid){
+  let { error } = await supabase.from('questions').update({ answered: false }).eq('id', id)
+  let { err } = await supabase.from('comments').update({ is_answer: false }).eq('id', submittedid)
+  console.log("ran the answered function")
+  console.log(submittedid)
+  console.log(answer_id)
+  getEntries()
+}
+
 onMounted(() => {
   getEntries();
 });
@@ -105,20 +131,38 @@ onMounted(() => {
       <button type = 'button' @click="submit_supa" class="formbold-btn">Submit</button>
     </form>
   </div>
-  <div v-else">Please Sign in to comment</div>
+  <div v-else>Please Sign in to comment</div>
   </div>
+
+  <div class="answer">
+    <div v-if="answered" v-for="i in messages">
+      <div v-if="i.id===answer_id">
+        Comment Marked as Answer:
+      </div>
+      <div v-if="i.id===answer_id" class = "comment comment_gray">
+        <div class="profile">{{ i.user }}</div>
+        <div class="body">{{i.message}}</div>
+        <button v-if="own_question" @click="unaccept(i.id)">Remove as accepted</button>
+      </div>
+    </div>
+    <div v-else>
+      No Answer Selected
+    </div>
+  </div>
+
 
   <div class="comments">
     <div class = "comment_section" v-for="i in messages">
-      <div class = "comment comment_gray" v-if="i.id % 2 == 0">
+
+      <div class = "comment comment_gray" v-if="i.id % 2 == 0 && i.id!=answer_id">
         <div class="profile">{{ i.user }}</div>
         <div class="body">{{i.message}}</div>
-        <button v-if="own_question && !answered" @click="accepted">Mark as accepted</button>
+        <button v-if="own_question && !answered" @click="accepted(i.id)">Mark as accepted</button>
       </div>
-      <div class = "comment comment_white" v-if="i.id % 2 == 1">
+      <div class = "comment comment_white" v-if="i.id % 2 == 1 && i.id!=answer_id">
         <div class="profile">{{i.user}}</div>
         <div class="body">{{i.message}}</div>
-        <button v-if="own_question && !answered" @click="accepted">Mark as accepted</button>
+        <button v-if="own_question && !answered" @click="accepted(i.id)">Mark as accepted</button>
       </div>
     </div>
   </div>
