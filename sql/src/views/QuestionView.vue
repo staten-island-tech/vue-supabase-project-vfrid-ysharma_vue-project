@@ -52,7 +52,7 @@ async function getEntries() {
     teacher = question.value[0]?.teacher;
     image = question.value[0]?.image;
     grade = question.value[0]?.grade;
-
+    console.log(image)
     if (sessionStore.session && sessionStore.session.user) {
       console.log(sessionStore.session.user.user_metadata.username);
 
