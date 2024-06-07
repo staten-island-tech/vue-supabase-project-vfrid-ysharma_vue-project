@@ -203,6 +203,34 @@ function submit(){
               <span class="formbold-radio-checkmark"></span>
             </label>
           </div>
+          <div class="formbold-radio-group">
+            <label class="formbold-radio-label">
+              <input
+              @click="update_radio('English')"
+                class="formbold-input-radio"
+                type="radio"
+                name="ans"
+                id="ans"
+                value="English"
+              />
+              Russian
+              <span class="formbold-radio-checkmark"></span>
+            </label>
+          </div>
+          <div class="formbold-radio-group">
+            <label class="formbold-radio-label">
+              <input
+              @click="update_radio('English')"
+                class="formbold-input-radio"
+                type="radio"
+                name="ans"
+                id="ans"
+                value="English"
+              />
+              Social Studies
+              <span class="formbold-radio-checkmark"></span>
+            </label>
+          </div>
         </div>
       </div>
 	  
