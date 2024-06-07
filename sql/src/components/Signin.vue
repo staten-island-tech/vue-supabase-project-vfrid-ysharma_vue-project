@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { useRouter } from 'vue-router'
 
   import { ref, onMounted } from 'vue'
   import { supabase } from "../lib/supabaseClient"
@@ -12,14 +13,9 @@
   const username=ref("")
   const osis=ref("")
   const sessionStore = useSessionStore()
+  const router=useRouter()
 
   async function signup() {
-    console.log(username.value)
-  //   if (
-  // email.value === "" || password.value === "" || f_name.value === "" || l_name.value === "" || grade.value === null || username.value === "" ||osis.value==""){
-  //   alert("please fill out all fields")
-  //   return
-  // }
   if(!(9<=grade.value<=12)){
       alert("Please enter a valid grade")
       console.log(grade.value)
@@ -46,6 +42,8 @@
   console.log(error)
   sessionStore.session=data
   console.log(sessionStore.session)
+  alert("sign-up success!")
+  router.push('/')
   }
   async function signin() {
     let { data, error } = await supabase.auth.signInWithPassword({
@@ -60,6 +58,8 @@
     if(error==null){
       sessionStore.session=data
       console.log(sessionStore.session)
+      alert("sign-in success!")
+      router.push('/')
       }
     }
   function showsignupfunc() {

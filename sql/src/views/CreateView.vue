@@ -11,11 +11,8 @@ import { useSessionStore } from '@/stores/usersession.ts'
   let question_text_f = ref('')
   const question_name_f = ref('')
   const class_name_f = ref('')
-  const user = 'simonsaff'
-  //run pinia code later to get this
   const subject_f = ref('')
   const teacher_f = ref('')
-  const grade_f = ref('')
   let question_name_error = ref('')
   let subject_error = ref('')
   let question_text_error = ref('')
@@ -23,7 +20,7 @@ import { useSessionStore } from '@/stores/usersession.ts'
   let class_name_error = ref('')
   let grade_error = ref('')
     async function submit_supa() {
-      if(question_name_f.value != '' && question_text_f.value != '' && subject_f.value != '' && teacher_f.value != '' && class_name_f.value != '' && grade_f.value != ''){
+      if(question_name_f.value != '' && question_text_f.value != '' && subject_f.value != '' && teacher_f.value != '' && class_name_f.value != '' ){
   const { data, error } = await supabase.from('questions').insert({
     user: sessionStore.session.user.user_metadata.username, 
     question_name: question_name_f.value, 
@@ -32,14 +29,15 @@ import { useSessionStore } from '@/stores/usersession.ts'
     subject: subject_f.value, 
     teacher: teacher_f.value, 
     class_name: class_name_f.value,
-    grade_level:grade_f.value
+    grade_level:sessionStore.session.user.user_metadata.grade
   });
 
 
   if (error){ console.error('Error inserting data:', error);}
   else {
     console.log('Data inserted:', data);
-    router.push('/submitted')
+    alert("thanks for asking a question!")
+    router.push('/')
   }
 }else{
   document.getElementById('main-wrapper').classList.add('formbold-main-wrapper-red')
@@ -66,97 +64,14 @@ import { useSessionStore } from '@/stores/usersession.ts'
   }else{
     class_name_error.value = ''
   }
-  if(grade_f.value == ''){
-    grade_error.value = "Please fill out this field"
-  }else{
-    grade_error.value = ''
   }
 }
 
-    }
+    
 
     function update_radio(value){
       subject_f.value = value
     }
-//jQuery time
-var current_fs, next_fs, previous_fs; //fieldsets
-var left, opacity, scale; //fieldset properties which we will animate
-var animating; //flag to prevent quick multi-click glitches
-
-$(".next").click(function(){
-	if(animating) return false;
-	animating = true;
-	
-	current_fs = $(this).parent();
-	next_fs = $(this).parent().next();
-	
-	//activate next step on progressbar using the index of next_fs
-	$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-	
-	//show the next fieldset
-	next_fs.show(); 
-	//hide the current fieldset with style
-	current_fs.animate({opacity: 0}, {
-		step: function(now, mx) {
-			//as the opacity of current_fs reduces to 0 - stored in "now"
-			//1. scale current_fs down to 80%
-			scale = 1 - (1 - now) * 0.2;
-			//2. bring next_fs from the right(50%)
-			left = (now * 50)+"%";
-			//3. increase opacity of next_fs to 1 as it moves in
-			opacity = 1 - now;
-			current_fs.css({
-        'transform': 'scale('+scale+')',
-        'position': 'absolute'
-      });
-			next_fs.css({'left': left, 'opacity': opacity});
-		}, 
-		duration: 800, 
-		complete: function(){
-			current_fs.hide();
-			animating = false;
-		}, 
-		//this comes from the custom easing plugin
-		easing: 'easeInOutBack'
-	});
-});
-
-$(".previous").click(function(){
-	if(animating) return false;
-	animating = true;
-	
-	current_fs = $(this).parent();
-	previous_fs = $(this).parent().prev();
-	
-	//de-activate current step on progressbar
-	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-	
-	//show the previous fieldset
-	previous_fs.show(); 
-	//hide the current fieldset with style
-	current_fs.animate({opacity: 0}, {
-		step: function(now, mx) {
-			//as the opacity of current_fs reduces to 0 - stored in "now"
-			//1. scale previous_fs from 80% to 100%
-			scale = 0.8 + (1 - now) * 0.2;
-			//2. take current_fs to the right(50%) - from 0%
-			left = ((1-now) * 50)+"%";
-			//3. increase opacity of previous_fs to 1 as it moves in
-			opacity = 1 - now;
-			current_fs.css({'left': left});
-			previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
-		}, 
-		duration: 800, 
-		complete: function(){
-			current_fs.hide();
-			animating = false;
-		}, 
-		//this comes from the custom easing plugin
-		easing: 'easeInOutBack'
-	});
-});
-
-
 
 onMounted(() => {
 //   getEntries()
@@ -222,12 +137,6 @@ function submit(){
         </label>
         <span class = 'error-message'>{{ grade_error }}</span>
 
-        <select class="formbold-form-select" v-model = 'grade_f' name="occupation" id="occupation">
-          <option value="Freshman">Freshman</option>
-          <option value="Sophmore">Sophmore</option>
-          <option value="Junior">Junior</option>
-          <option value="Senior">Senior</option>
-        </select>
       </div>
 
       <div class="formbold-input-radio-wrapper">

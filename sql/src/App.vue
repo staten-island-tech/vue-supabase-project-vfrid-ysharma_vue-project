@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {RouterLink, RouterView} from 'vue-router'
 import { useSessionStore } from '@/stores/usersession.ts'  
 import { ref, onMounted } from 'vue'

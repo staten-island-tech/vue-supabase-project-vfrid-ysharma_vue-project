@@ -1,4 +1,4 @@
-<script setup>
+<script setup  lang="ts">
 import { useRoute,useRouter } from 'vue-router';
 
 import { ref, onMounted } from 'vue'
@@ -40,11 +40,13 @@ onMounted(() => {
 </template>
 
 <style>
-@media (min-width: 1024px) {
   .about {
     min-height: 100vh;
     display: flex;
     align-items: center;
+    flex-direction: column;
+    padding:10%
   }
-}
+
+
 </style>
