@@ -154,12 +154,12 @@ onMounted(() => {
 
   <div class="comments">
     <div class = "comment_section" v-for="i in messages">
-      <div class = "comment comment_gray" v-if="i.id % 2 == 0">
+      <div class = "comment comment_gray" v-if="i.id % 2 == 0 && i.id!=answer_id">
         <div class="profile"><RouterLink :to="'/profile/'+ i.user ">{{i.user}}</RouterLink></div>
         <div class="body">{{i.message}}</div>
         <button v-if="own_question && !answered" @click="accepted(i.id)">Mark as accepted</button>
       </div>
-      <div class = "comment comment_white" v-if="i.id % 2 == 1">
+      <div class = "comment comment_white" v-if="i.id % 2 == 1 && i.id!=answer_id">
         <div class="profile"><RouterLink :to="'/profile/'+ i.user ">{{i.user}}</RouterLink></div>
         <div class="body">{{i.message}}</div>
         <button v-if="own_question && !answered" @click="accepted(i.id)">Mark as accepted</button>
