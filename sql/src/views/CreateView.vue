@@ -21,6 +21,10 @@ import { useSessionStore } from '@/stores/usersession.ts'
   let class_name_error = ref('')
   let grade_error = ref('')
     async function submit_supa() {
+      if (pic_address.value=="" ){
+        console.log(pic_address.value)
+        pic_address.value="https://bupfgvujmfpqumcodids.supabase.co/storage/v1/object/sign/question_images/question_mark_default.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJxdWVzdGlvbl9pbWFnZXMvcXVlc3Rpb25fbWFya19kZWZhdWx0LnBuZyIsImlhdCI6MTcxMjMyNjA2MiwiZXhwIjoxNzQzODYyMDYyfQ.6Q7KiS7kH8vgT5wmBoyyth6adMKzOUAnvWwIFFgQ-uI&t=2024-04-05T14%3A12%3A17.644Z"
+      }
       if(question_name_f.value != '' && question_text_f.value != '' && subject_f.value != '' && teacher_f.value != '' && class_name_f.value != '' ){
   const { data, error } = await supabase.from('questions').insert({
     user: sessionStore.session.user.user_metadata.username, 
