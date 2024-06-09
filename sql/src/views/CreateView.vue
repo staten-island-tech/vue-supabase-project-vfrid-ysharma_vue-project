@@ -570,5 +570,6 @@ filterFunction()
     display: flex;
     align-items: center;
     padding: 10px 20px;
+    cursor: pointer;
   }
 </style>
