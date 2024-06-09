@@ -73,6 +73,14 @@ import { useSessionStore } from '@/stores/usersession.ts'
       subject_f.value = value
     }
 
+
+    function dropdown_f(value){
+      class_name_f.value = value
+      document.getElementById("myDropdown").classList.remove("show");
+      document.getElementById('dd_btn').innerHTML = 'Selected: ' + value
+    }
+
+
 onMounted(() => {
 //   getEntries()
 })
@@ -117,9 +125,7 @@ filterFunction()
 
 <template>
   <div id='main-wrapper'class="formbold-main-wrapper">
-  <!-- Author: FormBold Team -->
-  <!-- Learn More: https://formbold.com -->
-  <div class="formbold-form-wrapper" v-if="sessionStore.session!=null"><
+  <div class="formbold-form-wrapper" v-if="sessionStore.session!=null">
     <h2>Post A Question</h2>
     <form>
       <div class="formbold-input-group">
@@ -139,6 +145,8 @@ filterFunction()
         <label for="email" class="formbold-form-label"> Class Name </label>
         <span class = 'error-message'>{{ class_name_error }}</span>
 
+        <!--
+
         <input
         v-model="class_name_f"
           type="text"
@@ -150,16 +158,70 @@ filterFunction()
 
         
 <div class="dropdown">
-  <button type = 'button' @click="myFunction" class="dropbtn">Dropdown</button>
+  <button id = 'dd_btn' type = 'button' @click="myFunction" class="dropbtn">Select a Class</button>
   <div id="myDropdown" class="dropdown-content">
-    <input type="text" placeholder="Search.." id="myInput" @keyup="filterFunction">
-    <a @click="dropdown_f('About')">About</a>
-    <a href="#base">Base</a>
-    <a href="#blog">Blog</a>
-    <a href="#contact">Contact</a>
-    <a href="#custom">Custom</a>
-    <a href="#support">Support</a>
-    <a href="#tools">Tools</a>
+    <input autocomplete="none" type="text" placeholder="Search.." id="myInput" @keyup="filterFunction">
+    <a @click="dropdown_f('Algebra I')">Algebra I</a>
+<a @click="dropdown_f('Geometry')">Geometry</a>
+<a @click="dropdown_f('Algebra II')">Algebra II</a>
+<a @click="dropdown_f('AP PreCalculus')">AP PreCalculus</a>
+<a @click="dropdown_f('AP Calculus AB')">AP Calculus AB</a>
+<a @click="dropdown_f('AP Calculus BC')">AP Calculus BC</a>
+<a @click="dropdown_f('AP Statistics')">AP Statistics</a>
+<a @click="dropdown_f('Multivariable Calculus')">Multivariable Calculus</a>
+<a @click="dropdown_f('Math Team')">Math Team</a>
+<a @click="dropdown_f('Intro to STEM Engineering and Robotics')">Intro to STEM Engineering and Robotics</a>
+<a @click="dropdown_f('Intro to AV Engineering and TV Studio')">Intro to AV Engineering and TV Studio</a>
+<a @click="dropdown_f('Computer Science and Engineering')">Computer Science and Engineering</a>
+<a @click="dropdown_f('C.A.D.')">C.A.D.</a>
+<a @click="dropdown_f('AP Computer Science Principles')">AP Computer Science Principles</a>
+<a @click="dropdown_f('Advanced Computer Applications and Development')">Advanced Computer Applications and Development</a>
+<a @click="dropdown_f('Electronics and Green Technology')">Electronics and Green Technology</a>
+<a @click="dropdown_f('Advanced AV Engineering and TV Studio 1')">Advanced AV Engineering and TV Studio 1</a>
+<a @click="dropdown_f('Advanced AV Engineering and TV Studio 2/3')">Advanced AV Engineering and TV Studio 2/3</a>
+<a @click="dropdown_f('Fundamentals of Engineering')">Fundamentals of Engineering</a>
+<a @click="dropdown_f('Chemistry')">Chemistry</a>
+<a @click="dropdown_f('AP Chemistry')">AP Chemistry</a>
+<a @click="dropdown_f('Physics in Medicine')">Physics in Medicine</a>
+<a @click="dropdown_f('Regents Physics')">Regents Physics</a>
+<a @click="dropdown_f('AP Physics 1')">AP Physics 1</a>
+<a @click="dropdown_f('AP Physics 2')">AP Physics 2</a>
+<a @click="dropdown_f('AP Physics C')">AP Physics C</a>
+<a @click="dropdown_f('Applied Physics')">Applied Physics</a>
+<a @click="dropdown_f('AP Environmental Science')">AP Environmental Science</a>
+<a @click="dropdown_f('AP Psychology')">AP Psychology</a>
+<a @click="dropdown_f('Forensic Science')">Forensic Science</a>
+<a @click="dropdown_f('AP Biology')">AP Biology</a>
+<a @click="dropdown_f('Biotechnology')">Biotechnology</a>
+<a @click="dropdown_f('Human Anatomy and Physiology')">Human Anatomy and Physiology</a>
+<a @click="dropdown_f('S.E.R.P.')">S.E.R.P.</a>
+<a @click="dropdown_f('English 3/4')">English 3/4</a>
+<a @click="dropdown_f('English 1/2')">English 1/2</a>
+<a @click="dropdown_f('AP English Language')">AP English Language</a>
+<a @click="dropdown_f('English 5/6')">English 5/6</a>
+<a @click="dropdown_f('AP English Literature')">AP English Literature</a>
+<a @click="dropdown_f('Modern Mythology: Gods and Monsters')">Modern Mythology: Gods and Monsters</a>
+<a @click="dropdown_f('Creative Writing')">Creative Writing</a>
+<a @click="dropdown_f('Publications')">Publications</a>
+<a @click="dropdown_f('Public Speaking')">Public Speaking</a>
+<a @click="dropdown_f('AP World History: Modern')">AP World History: Modern</a>
+<a @click="dropdown_f('AP World History: Ancient')">AP World History: Ancient</a>
+<a @click="dropdown_f('APUSH')">APUSH</a>
+<a @click="dropdown_f('APUSH through Film, Art, and Music')">APUSH through Film, Art, and Music</a>
+<a @click="dropdown_f('AP US Government and Politics')">AP US Government and Politics</a>
+<a @click="dropdown_f('Participation in Government')">Participation in Government</a>
+<a @click="dropdown_f('Economics')">Economics</a>
+<a @click="dropdown_f('AP Macroeconomics')">AP Macroeconomics</a>
+<a @click="dropdown_f('Russian Language 1')">Russian Language 1</a>
+<a @click="dropdown_f('Russian Language: Heritage 1')">Russian Language: Heritage 1</a>
+<a @click="dropdown_f('Russian Language 2')">Russian Language 2</a>
+<a @click="dropdown_f('Russian Language: Accelerated')">Russian Language: Accelerated</a>
+<a @click="dropdown_f('Russian Language: Advanced Heritage')">Russian Language: Advanced Heritage</a>
+<a @click="dropdown_f('Russian Language 3')">Russian Language 3</a>
+<a @click="dropdown_f('College Russian Accelerated')">College Russian Accelerated</a>
+<a @click="dropdown_f('College Russian Advanced Heritage')">College Russian Advanced Heritage</a>
+<a @click="dropdown_f('Russian for Business')">Russian for Business</a>
+
  
 
   </div>
@@ -280,7 +342,7 @@ filterFunction()
 </div>
 </template>
 
-<style>
+<style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
   * {
     margin: 0;
@@ -298,7 +360,7 @@ filterFunction()
   background-position: 14px 12px;
   background-repeat: no-repeat;
   font-size: 16px;
-  padding: 14px 20px 12px 45px;
+  padding: 14px 200px 12px 45px;
   border: none;
   border-bottom: 1px solid #ddd;
 }
@@ -314,7 +376,7 @@ filterFunction()
   display: none;
   position: absolute;
   background-color: #f6f6f6;
-  min-width: 230px;
+  min-width: 400px;
   overflow: auto;
   border: 1px solid #ddd;
   z-index: 1;
@@ -322,7 +384,6 @@ filterFunction()
 
 .dropdown-content a {
   color: black;
-  padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
@@ -486,5 +547,28 @@ filterFunction()
   }
   .error-message{
     color:red;
+  }
+
+  #dd_btn{
+    color: #07074d;
+    background: #ffffff;
+    padding: 10px;
+    border: 1px solid #07074d;
+    border-radius: 5px;
+    cursor: pointer;
+    transition-duration: 100ms;
+  }
+
+  #dd_btn:hover{
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+
+  }
+
+  #myDropdown a{
+    height:40px;
+    border-radius: 0px;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
   }
 </style>
